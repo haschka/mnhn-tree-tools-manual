@@ -1,0 +1,56 @@
+\chapter{Introduction}
+
+This manual is written as a guide for scientist using and continuing to
+develop \emph{MNHN-Tools}. As such this guide provides you with a
+installation procedure, detailed usage instructions and technical
+details for every tool contained within this suite and a tutorial to get
+the reader started with a typical clustering and density distance
+based phylogenetics as well as tree building.
+
+\section{License}
+Copyright (C) 2019-2020 Thomas Haschka \newline
+This software is provided 'as-is', without any express or implied
+warranty.  In no event will the authors be held liable for any damages
+arising from the use of this software.
+
+Permission is granted to anyone to use this software for any purpose,
+including commercial applications, and to alter it and redistribute it
+freely, subject to the following restrictions:
+
+\begin{enumerate}
+  \item The origin of this software must not be misrepresented; you must not
+    claim that you wrote the original software. If you use this software
+   in a product, an acknowledgment in the product documentation would be
+   appreciated but is not required.
+  \item Altered source versions must be plainly marked as such, and must not be
+    misrepresented as being the original software.
+  \item This notice may not be removed or altered from any source,
+    binary distribution and this manual.
+\end{enumerate}
+
+\section{General Overview}
+
+\emph{MNHN-Tools} was developed in order to cluster and infer
+phylogenetic evolution into repeated sequences in a single genome,
+namely: α-satellites in primate genomes. During the development
+the versatility of the tools presented herein was both discovered and
+enforced. As such this tool is applicable to all kinds of data
+discovery tasks on datasets of sequences. Notebly this tool has been
+used for experiances around Deoxyribonucleic Acid (DNA) barcoding tasks
+Operational Taxonomic Unit (OTU) detection.
+
+\emph{MNHN-Tools} as such is a suite that allows you to gain insights
+into a dataset composed of nucleic or protein sequences provided as
+FASTA \cite{fasta} files. The tool allows you to cluster such a
+dataset and to built phylogenetic trees based on a density- distance
+based criteria. This is achieved by a repeated application of the
+Density-Based Spatial Clustering of Applications with Noise (DBSCAN)
+\cite{dbscan} algorithm. Clustering and gaining such sequence-sequence
+dependency or phylogentic insights are at the heart of this
+software. Nevertheless this software provides you with all kinds of
+tools that might be of use, such as, but not limited to: The
+generation of fasta datasets using simulated evolution, the projection
+of FASTA files into a Principal Component Analyses (PCA) based subspace, the
+evaluation of k-mer vectors from fasta datasets or the calulation of
+clustering parameters such as the Silhouette \cite{silhoutte}
+index on a dataset.

@@ -1,0 +1,141 @@
+\section{kmer2pca} \label{sec-kmer2pca}
+
+\subsection{General}
+
+The \emph{kmer2pca} tool implements the calculation of and projection onto
+principal components. The tools yields the projections onto the
+principal components as well as the eigenvalues of covariance matrix.
+
+\subsection{usage}
+
+\lstset{language=bash,
+  caption={Calling the \emph{kmer2pca} tool},
+  label=lst-kmer2pca-call}
+\begin{lstlisting}
+kmer2pca [kmer-file] [projections] [eigenvalues] [dimensions] [n-threads]
+\end{lstlisting}
+The \emph{kmer2pca} tool has the following arguments.
+\begin{enumerate}
+  \item \emph{kmer-file} A file containing k-mer frequencies as
+    calculated by the fasta2kmer tool presented in section
+    \ref{sec-fasta2kmer}
+  \item \emph{projections} The file where projections onto the
+    principal components will be written to. This file contains
+    tabulator seperated values, each line corresponds to the line in
+    k-mer frequencies input file.
+  \item \emph{eigenvalues} The file where the eigenvalues of
+    covariance matrix are written to. The eigenvalues are sorted from
+    smallest to largest.
+  \item \emph{dimensions} The number of principal components to
+    project on. The number of dimensions of the resulting
+    subspace. The k-mers are projected onto the [dimension]
+    principal components corresponding to [dimension] highest
+    eigenvalues.
+  \item \emph{n-threads} The number of threads to be made available
+    for this computation. A good choice is the number of logical cores
+    available on the machine.
+\end{enumerate}
+
+\subsection{example}
+
+\lstset{language=bash,
+  caption={Example call \emph{kmer2pca} tool},
+  label=lst-kmer2pca-example}
+\begin{lstlisting}
+fasta2kmer test.kmer test.pca test.ev 7 8
+\end{lstlisting}
+In this example we calculate the projections into a seven dimensional
+suspace spun by the 7 principal components with the highest
+variance. The projections of the k-mers stored in test.kmer onto these
+7 principal components are written to test.pca. The eigenvalues of the
+covariance matrix built from the kmers in test.kmer are written to the
+test.ev file. 8 threads are used to perfromed to built the covariance
+matrix.
+
+\subsection{algorithm}
+
+The PCA is straight forward implemented in its most common form. We
+have the vectors of k-mer frequencies for each sequence. We hence can
+call each k-mer a features, of which we have the number of sequences
+samples. In order perform a PCA we first need to obtain a feature
+covariance matrix, and hence calculate the covariance entre k-mers for
+the dataset of sequences that have. We first calculate the mean of all
+k-mers, let us call a single k-mer $X$:
+\begin{equation}
+  \bar{X} = \frac{1}{n}\sum_{i=1}^{n}X_i,
+\end{equation}
+where $n$ is the number of sequences. For two different k-mers, let us
+call them $X$ and $Y$ we can than calculate the covariance:
+\begin{equation}
+  \sigma_X\sigma_Y =
+  \frac{1}{n}\sum_{i=1}^{n}(X_i-\bar{X})(Y_i-\bar{Y}). \label{eqn-covariance}
+\end{equation}
+and further built the covariance matrix for all available covariances
+from all available k-mers.
+\begin{equation}
+  C = \left[
+    \begin{array}{ccc}
+      \sigma_1\sigma_1 & \cdots & \sigma_1\sigma_n \\
+      \vdots & \ddots & \vdots \\
+      \sigma_n\sigma_1 & \cdots & \sigma_n\sigma_n
+    \end{array}
+    \right] \label{eqn-covariance}
+\end{equation}
+From this covariance matrix solve the eigenvalue equation:
+\begin{equation}
+  Cv_i=\lambda_i v_i \label{eqn-eigen}
+\end{equation}
+where $v_i$ are the eigenvectors or in the sense of PCA the principal
+components while $\lambda_i$ are the associated eigenvales.
+
+Once the principal components are obtained they are sorted together
+with the associated eigenvalues. In order to calculate the projections
+a sample $S$ and hence a sequence in its k-mer represenation has to be
+projected onto the principal components $v_i$ with the highest
+eigenvalues. The number of projections is given by the
+\emph{dimension} parameter of the tool. The projections $p_i$ are the simple
+inner product of a k-mer representation of a sequence $S$ with the
+eigenvector $v_i$,
+\begin{equation}
+  p_i = <v_i|S>.
+\end{equation}
+As such we have effectivly removed the dimensionalty to the number of
+\emph{dimensions} as selected.
+
+The algorithm is implemented by parallization on different
+levels. The algorithm spents for a great number of samples most of its
+time calculating the matrix elements of equation
+(\ref{eqn-covariance}). The matrix itself rests in most cases
+of a small rank, the number of individual k-mers. As such solving the
+eigenvalues and eigenvectors ( principal components ) in equation
+(\ref{eqn-eigen}) is especially for k-mers of small $k$ fast. Hence we
+focused our efforts on the calculation of the matrix elements in
+(\ref{eqn-covariance}). As the coviariance matrix is symmetric we
+calculate only the half of the elements transposing them into the
+other half. Each row of the matrix is calculated in its own thread,
+allowing us to calculate several rows on several cores in
+parallel. Besides this we used Single Instruction Multiple Data (SIMD)
+instructions in evaluating equation (\ref{eqn-covariance}). We do this
+in calculating partial sums:
+\begin{eqnarray}
+  \sigma_X
+  \sigma_Y[1]&=&\sum_{i=1}^{n/4}(X_{[(i+4)n/4]}-\bar{X})(Y_{[(i+4)n/4]}-\bar{Y}) \\
+  \sigma_X
+  \sigma_Y[2]&=&\sum_{i=2}^{n/4}(X_{[(i+4)n/4]}-\bar{X})(Y_{[(i+4)n/4]}-\bar{Y}) \\
+  \sigma_X
+  \sigma_Y[3]&=&\sum_{i=3}^{n/4}(X_{[(i+4)n/4]}-\bar{X})(Y_{[(i+4)n/4]}-\bar{Y}) \\
+  \sigma_X
+  \sigma_Y[4]&=&\sum_{i=4}^{n/4}(X_{[(i+4)n/4]}-\bar{X})(Y_{[(i+4)n/4]}-\bar{Y}) \\
+  \sigma_X
+  \sigma_Y &=& \sum_{i=1}^4\sigma_X\sigma_Y[i].
+\end{eqnarray}
+Further the partial sums are implemented by the Kahan summation
+algorithm \cite{kahan}, avoiding floating point errors in summing a
+large number of values.
+
+Calculating the eigenvectors and eigenvalues is performed by calling
+the optimized \emph{dsyev} routine from the LAPACK libraries \cite{lapack}.
+
+\subsection{Implementation}
+
+Both the algorithm and the interface are implemented in \emph{kmer2pca.c}.

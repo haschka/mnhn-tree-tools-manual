@@ -1,0 +1,77 @@
+\section{fasta2kmer} \label{sec-fasta2kmer}
+
+\subsection{General}
+
+The \emph{fasta2kmer} tool implements the calculation of k-mer
+frequencies for each sequence to be found in a FASTA \cite{fasta}
+file. The tool can calculate both k-mer frequencies for nucleic and
+protein sequences. k-mers are all possible sequences for k
+letters. The frequencies are how often each of these k-mers is found
+in the entire sequence.
+
+\subsection{Usage}
+
+\lstset{language=bash,
+  caption={Calling the \emph{fasta2kmer} tool},
+  label=lst-fasta2kmer-call}
+\begin{lstlisting}
+fasta2kmer [fasta-file] [kmer-length] [number-of-threads] [protein?] > kmerbase
+\end{lstlisting}
+The \emph{fasta2kmer} tool has the following arguments.
+\begin{enumerate}
+  \item \emph{fasta-file} The fasta file containing the sequences to
+    calculate k-mer frequencies of.
+  \item \emph{kmer-length} The length of the k-mers to calculate
+    frequcies from.
+  \item \emph{number-of-threads} The number of individual threads to
+    be available for this computation. A good choice is the number of
+    logical cores available on the machine in question.
+  \item \emph{protein?} Set 0 for nucleic sequences, 1 for protein
+    sequences.
+  \item \emph{kmerbase} The output file where to write kmer frequences
+    for each sequence to. The format of this file is tablulator
+    seperated. The first entry in each line is writes
+    \emph{sequence\_N} where N is the sequence number attributed by
+    counting from 0 to N by occurance of sequences in the FASTA
+    file. The following entries the line, purely numeric are the
+    frequencies of the k-mer in questions.
+\end{enumerate}
+
+\subsection{Example}
+
+\lstset{language=bash,
+  caption={Example call \emph{fasta2kmer} tool},
+  label=lst-fasta2kmer-example}
+\begin{lstlisting}
+fasta2kmer test.fasta 5 8 0 > test.kmer
+\end{lstlisting}
+In this case one calculate 5-mer frequencies for the file test.fasta
+using 8 threads. test.fasta contains nucleic sequences. The output ist
+stored in test.kmer.
+
+\subsection{Algorithm}
+
+The nucleic k-mers are calculated using a binary scheme. As the
+nucleic letters contain only four members A, C, G, T they can be
+represented by 00, 01, 10, 11 in binary form. To generate all possible
+k-mers we generate a binary number of $2k$ in length containing only
+ones. I.e. for $k=3$ we generate $111 111 = 63$ and count down to $0$
+generating all 64 3-mers by comparing the binary represenation with
+the letter code.
+
+The protein code uses a different scheme generate proteic k-mers.
+A recursive function called $k$ times shifting position counting to
+from 0 to 19 is called generating all possible protein k-mers for the
+length $k$.
+
+The frequencies are calculated by comparing the code at each overlay
+position of the sequence to calculate frequencies for. An early stop
+condition for a mismatching letter is implemented. The comparison is
+performed multithreaded distributing the number sequencies to
+calcualte k-mer frequencies from accross the number of threads
+requested.
+
+\subsection{Implementation}
+
+The algorithms for the tool are implemented in \emph{kmers.c}
+The interface to the algorithms is implemented in \emph{fasta2kmer.c}

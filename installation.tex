@@ -1,0 +1,83 @@
+\chapter{Installation}
+
+In this chapter we will provide you with the details that allow you to
+install \emph{MNHN-Tools}. The primary distribution method is in the
+form of source code on github: \newline
+\url{https://github.com/haschka/mnhn} \newline
+
+For a full installation a machine with a UNIX or UNIX-like system
+is required. The machine currently has to be of \emph{x86\_64}
+architecture and support the \emph{AVX} instruction set. In order to
+compile the full suite of tools you need a toolchain, consisting of:
+\begin{itemize}
+\item \emph{make:} Which is required to build the suite and various subsets
+\item \emph{compiler/linker:} A working C compilier, the suite was found to
+  compile with \emph{gcc} and \emph{clang}.
+\item \emph{BLAS/LAPACK} An implementation of the BLAS/LAPACK
+  libraries.
+\item \emph{OpenCL:} A working implementation of the OpenCL
+  language. The suite was tested to compile with the
+  \emph{nvidia-opencl-toolkit} or the \emph{intel-opencl-sdk}.
+\item \emph{SDL2:} An implementation of the SDL2 library.
+\item \emph{MPI:} An implementation of the Message Passing Interface
+  (MPI). The suite was tested with \emph{OpenMPI}.
+\item \emph{PNG:} An implementation of the PNG graphics library.
+\end{itemize}
+You may make sure that you not only have the binary versions of the
+supporting libraries installed but also the header files, otherwise
+the software will not be able to compile. As such you may need to
+install the developer \emph{-dev} versions of the libraries. In the
+next step you may clone the \emph{MNHN-Tools} source code from github.
+You can do this by issuing the following command in your UNIX
+terminal:
+\lstset{language=bash,
+  caption={Cloning the source from github.},
+  label=lst-git-clone}
+\begin{lstlisting}                                                              
+git clone https://github.com/haschka/mnhn.git
+cd mnhn
+\end{lstlisting}
+Cloned and enterd the mnhn directory you need to edit the head of the
+make file suite your UNIX systems needs, select the correct compiler
+flags and linking commands to the libraries. You may consult the
+forums and documentation of your System/Distribution to find the
+correct values. In general \emph{CC} is the command of your compiler,
+\emph{MPICC} the MPI wrapper of your compilier. \emph{CFLAGS} the
+options that you want to pass to your compilier. The other options are
+the linker flags to the corresponding libraries.
+\lstset{language=make,
+  caption={Heat of the Makefile},
+  label=lst-make-head}
+\begin{lstlisting}                                                           
+CC=gcc
+MPICC=mpicc
+CFLAGS= -O2 -march=native -ftree-vectorize -fomit-frame-pointer 
+LAPACK=-llapack
+MATH=-lm
+PTHREAD=-pthread
+OPENCL=-lOpenCL
+PNG=-lpng
+MPI=-lmpi
+SDL=$(shell sdl2-config --cflags) $(shell sdl2-config --libs)
+\end{lstlisting}
+With your flags adjusted you may compile the code issuing
+\lstset{language=bash,
+  caption={Building all tools},
+  label=lst-build}
+\begin{lstlisting}
+mkdir bin
+make all
+\end{lstlisting}
+If you do not need the full functionality of \emph{MNHN-Tools} you can
+install each tool individually by calling:
+\lstset{language=bash,
+  caption={Building individual tools},
+  label=lst-make-head-individual}
+\begin{lstlisting}
+mkdir bin
+make name-of-the-tool
+\end{lstlisting}
+This might especially be convenient if you are not able to install all
+the libraries in question on your system as the tool that you might
+really need might not depend on the library that you might not be able
+to install.
