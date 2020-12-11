@@ -1,0 +1,49 @@
+\section{find\_closest\_sequence\_SW}
+
+\subsection{General}
+
+This tool allows you to find the closest sequence to a known sequence in a
+FASTA file, using the Smith Waterman distance as outlined in section
+\ref{sec-dbscan-algorithm}.
+
+\subsection{Usage}
+
+The tool can be used like:
+\lstset{language=bash,
+  caption={Calling the \emph{find\_closest\_sequence\_SW} tool},
+  label=lst-closestSW-call}
+\begin{lstlisting}
+find_closest_sequence_SW [fasta] [fasta-query] [seq-index] [n-threads]
+  [fasta-out]
+\end{lstlisting}
+with the following arguments:
+\begin{enumerate}
+  \item \emph{fasta} A FASTA file to search for the closest sequence
+    in.
+  \item \emph{fasta-query} A FASTA file that contains the sequence
+    that one wants to find the closest sequence to.
+  \item \emph{seq-index} A sequence index that indicates which
+    sequence of the \emph{fasta-query} file to use. The first sequence
+    has the index 1 in this tool. 
+  \item \emph{n-threads} The number of threads that is available to
+    the sequence search.
+  \item \emph{fasta-out} A FASTA file where the tool will store this
+    sequence in. 
+\end{enumerate}
+
+\subsection{Example}
+
+\lstset{language=bash,
+  caption={Calling the \emph{find\_closest\_sequence\_SW} tool},
+  label=lst-closestSW-example}
+\begin{lstlisting}
+find_closest_sequence_SW test.fasta query.fasta 1 8 result.fasta
+\end{lstlisting}
+Here the tool finds the closest sequence to the first sequence from
+the \emph{query.fasta} file in the \emph{test.fasta} file. The search
+might use 8 individual parallel threads. The closest sequence found in
+\emph{test.fasta} is written to \emph{result.fasta}.
+
+\subsection{Implementation}
+The tool is implemented in \emph{find\_closest\_sequence\_SW.c}.
+

@@ -1,0 +1,13 @@
+
+*~
+*.[oa]
+\#*\#
+.\#*
+auto-save-list
+tramp
+doc/*
+*/doc/*
+*log
+*bbl
+*blg
+*toc

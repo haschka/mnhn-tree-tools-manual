@@ -1,0 +1,64 @@
+\section{split\_set\_from\_swarm} \label{sec-ssswarm}
+
+\subsection{General}
+
+Using this tool one can generate a binary \emph{split-set} file describing
+a clustering in the sense of \emph{MNHN-Tools} from a clustering generated
+with Swarm version 3 \cite{swarm2}.
+
+\subsection{Usage}
+The tool can be used in the following manner:
+\lstset{language=bash,
+  caption={Calling the \emph{split\_set\_from\_swarm} tool},
+  label=lst-ssswarm-call}
+\begin{lstlisting}
+split_set_from_swarm [fasta] [swarm] [split-set]
+\end{lstlisting}
+with the following arguments:
+\begin{enumerate}
+  \item \emph{fasta} The original FASTA file that has been clustered with Swarm
+    version 3 \cite{swarm2}. This is not the downsampled file that you
+    use to create the swarm clustering but the original
+    dataset. (c.f. example).
+  \item \emph{swarm} The clustering performed by swarm. Swarms output
+    file
+  \item \emph{split-set} The binary file containing the clustering to
+    be created.
+\end{enumerate}
+
+\subsection{Example}
+We imagine we would like to generate a clustering with swarm of
+several sequences. Hence we first have to eleminate duplicates and
+name the duplicity in a way that swarm understands it. The
+\emph{sequence\_mulitplicity} tool outlined in section
+\ref{sec-seqmult}, is perfect for this task. Hence we prepare the
+swarm input file as follows:
+\lstset{language=bash,
+  caption={Generating an input for swarm using the \emph{sequence\_multiplicity} tool},
+  label=lst-sequencemultiplicity-example-swarm}
+\begin{lstlisting}
+sequence_multiplicity test.fasta > swarm-in.fasta
+\end{lstlisting}
+We than run the swarm tool to cluster our dataset.
+\lstset{language=bash,
+  caption={Calling Swarm before the \emph{split\_set\_from\_swarm} tool},
+  label=lst-ssswarm-swarm-example}
+\begin{lstlisting}
+swarm swarm-in.fasta > swarm-output
+\end{lstlisting}
+and can finally built a \emph{split-set} cluster file that uses the interal
+structures of the tools that are presented in this
+manual.
+\lstset{language=bash,
+  caption={Example of the \emph{split\_set\_from\_swarm} tool},
+  label=lst-ssswarm-example}
+\begin{lstlisting}
+split_set_from_swarm test.fasta swarm-output /tmp/split-set
+\end{lstlisting}
+Note that \emph{test.fasta} is used in the final call and not
+\emph{swarm-in.fasta}. The tool can by tracking the correct
+annotations find the correct sequences in the original dataset and
+built a binary \emph{split-set} file accordingly.
+
+\subsection{implementation}
+The tool is implemented in \emph{split\_set\_from\_swarm.c}.

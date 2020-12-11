@@ -1,4 +1,4 @@
-\section{cluster\_dbscan\_X}
+\section{cluster\_dbscan\_X} \label{sec-dbscan-cluster}
 
 \subsection{General}
 
@@ -54,7 +54,9 @@ The tools have the following arguments:
   \item \emph{fasta}: A FASTA file containing the sequences to be
     clustered. In the case of Smith-Waterman clustering the FASTA file
     has to containe nucleic sequences as clustering of proteic
-    sequences under a Smith-Waterman distance is not implemented.
+    sequences under a Smith-Waterman distance is not implemented. In
+    case the Smith-Waterman distance is evaluated on GPUs the maximum
+    sequence length is limited to 300 nucleotide bases.
   \item \emph{pcaproj}: The projections onto the principal components
     as calculated by the \emph{kmer2pca} tool. 
   \item \emph{dimensions}: The number of dimensions, principal
@@ -78,14 +80,93 @@ The tools have the following arguments:
     clusters into visual representations of the PCA projections.
 \end{enumerate}
 
-\subsection{Algorithm}
+\subsection{Algorithm} \label{sec-dbscan-algorithm}
 
 The utility implements the DBSCAN algorithm straight forward as
-described in its original article \cite{dbscan}.
+described in its original article \cite{dbscan}. The DBSCAN algorithm
+is perfect in finding \emph{density connected} subsets of a
+dataset. The algorithm as such find all connected ensembles in a
+dataset that exceed a certain density:
+\begin{equation}
+  \rho = \frac{n}{V(\epsilon)} \label{eqn-density}
+\end{equation}
+where V is the Volume within an epsilon neighborhood defind by the
+radius $\epsilon$. $n$ corresponds to the number of sequences within
+the afforementioned volume, and is defined using the \emph{minPoints}
+parameter. The formula for the volume depends on the metric used, but
+is hypercubic for $L_1$ measurements, and hyperspheric for $L_2$
+measurements. Sequences scattered in sequence space with a density
+below $\rho$ are found to be outliers and will not be taken into
+account and are hence not to be found in the resulting clusters. 
 
-The different distance measures in the region expand method as
+The different distance measures in the \emph{region expand method} as
 described in the original paper use various means of optimisation and
-parallization.
+parallization. In the case of PCA, kmerL1, kmerL2 distance methods up to eight
+distances between sequences are calculated in parallel making use of
+the AVX SIMD instructions. In the case of the Smith Waterman distance
+measure an OpenCL (GPU) method is available allowing to efficiently calculate
+multiple distances in parallel on OpenCL devices such as GPUs. 
+
+The Smith Waterman algorithm calculates the Smith Waterman matrix and
+defines the maximum value to be found within the matrix to be the
+distance between two sequences. No implimentation a Smith Waterman
+algorithm using protein sequences has been implemented. The algorithm
+builds the matrix using the recurrence relation:
+\begin{eqnarray}
+s_1&=&M(j-1,i-1)+F(A(i),B(j)), \\ \nonumber
+s_2&=&M(j,i-1)-G, \\ \nonumber
+s_3&=&M(j-1,i)-G, \\ \nonumber
+M(i,j)&=&\mathrm{max}(s_1,s_2,s_3).
+\end{eqnarray}
+where $A$ and $B$ are two sequences of the dataset to be compared and
+$A(i)$ is the i-th letter of sequence $A$ and $B(j)$ is the j-th
+letter of sequence $B$.
+\begin{equation}
+  F(A(i),B(j)) = \left\{
+    \begin{array}{l}
+      A(i) = B(j) : 4 \\
+      A(i) \neq B(j) : -4,
+    \end{array} \right.
+\end{equation}
+is the comparison relation. $G$ is the gap penalty defined to be 3 and
+$M(i,j)$ the Sith Waterman matrix yielding the distance:
+\begin{equation}
+  d(A,B) = \mathrm{max}(M(i,j));
+\end{equation}
+In the case of the GPU implementation only three subsequent rows of
+the matrix are stored in memory evaluating the maximum on the fly
+calculating row after row of the Smith Waterman Matrix. This shall
+allow to use more local memory that is closer to the compute unit, if
+not only local registers on the graphics card for the computation.
+
+\subsection{Example}
+
+\lstset{language=bash,
+  caption={Example of the \emph{cluster\_dbscan\_PCA} tool},
+  label=lst-dbscan-example}
+\begin{lstlisting}
+  cluster_dbscan_PCA test.fasta test.pca 7 0.02 4 /tmp/outf /tmp/outv
+\end{lstlisting}
+This example performs DBSCAN based clustering using $L_2$ distances in
+a 7 dimensional subspace with subspace projections stored in the
+test.pca file. The input values for the DBSCAN run are $\epsilon=0.02$
+and minpoints $n=4$. The resulting clusters will be stored in /tmp/
+with in FASTA format with a file name of outf$N$, and as projections
+onto the principal components outv$N$, where $N$ is an individual
+number for each clusters. 
+
+\subsection{Implementation}
+
+The DBSCAN algorithm for all variants is implemented in \emph{dbscan.c}
+The Interface for the Smith-Waterman variants is imlemented in
+\emph{cluster\_dbscan\_SW.c}.
+The Interface for k-mer distance based $L_1$ and $L_2$ variants is
+implemented in \emph{cluster\_dbscan\_kmer.c}.
+The Interface for the PCA variant is implemented in
+\emph{cluster\_dbscan\_pca.c}.
+
+
+
 
 
 

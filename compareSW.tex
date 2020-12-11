@@ -1,0 +1,45 @@
+\section{compareSW}
+
+\subsection{General}
+
+The \emph{compareSW} tool calculates the mean distance and standard deviation
+between two datasets under the Smith Waterman distance.
+
+\subsection{Usage}
+
+One can call the \emph{compareSW} tool like:
+\lstset{language=bash,
+  caption={Calling the \emph{compareSW} tool},
+  label=lst-compareSW-call}
+\begin{lstlisting}
+compareSW [fasta1] [fasta2] [n-threads]
+\end{lstlisting}
+with the following arguments:
+\begin{enumerate}
+\item \emph{fasta1}: A FASTA file containg a set of sequences.
+\item \emph{fasta2}: An other FASTA file containing a set of sequences.
+\item \emph{n-threads}: The number of threads that this computation might use.
+\end{enumerate}
+
+\subsection{Algorithm}
+
+calculates the mean and the standard deviation of the distances
+between the sequences in the two datasets. If the first dataset has
+$n$ sequences and the second $j$, the number of total distances
+calculated is hence, $N=nj$. The Smith Waterman algorithm is the same
+as outlined in section \ref{sec-dbscan-algorithm}. 
+
+\subsection{Example}
+\lstset{language=bash,
+  caption={Example of the \emph{compareSW} tool},
+  label=lst-compareSW-example}
+\begin{lstlisting}
+compareSW test1.fasta test2.fasta 8
+\end{lstlisting}
+This example computes the mean distance between the sequences in test1.fasta
+and test2.fasta using 8 cores. 
+
+\subsection{Implementation}
+The functions to calculated the mean and standard deviation are
+implemented in \emph{comparison.c}. The Interface is implemented in
+\emph{compareSW.c}.

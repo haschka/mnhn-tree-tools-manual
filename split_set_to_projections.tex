@@ -1,0 +1,52 @@
+\section{split\_set\_to\_projections} \label{sec-ssproj}
+
+The \emph{split\_set\_to\_projections} tool allows you to get clusterwise
+principal component projections from the clustering information stored in
+binary \emph{split-set} files obtained by an adaptive clustering run
+on a dataset, i.e. obtained from the tool shown in section
+\ref{sec-adaptive-clust} and a PCA projection of the same dataset that
+can be obtained using the \emph{kmer2pca} tool presented in section
+\ref{sec-kmer2pca}.
+This tool is especially useful to plot individual clusters together
+with a PCA analysis of sequences and hence find sequences
+corresponding to clusters in such a diagram. 
+
+\subsection{usage}
+
+The \emph{split\_set\_to\_projections} tool is to be called like:
+
+\lstset{language=bash,
+  caption={Calling the \emph{split\_set\_to\_projections} tool},
+  label=lst-ssproj-call}
+\begin{lstlisting}
+split_sets_to_projections [fasta] [pca] [dimensions] [split-set] [projections]
+\end{lstlisting}
+with the following arguments:
+\begin{enumerate}
+  \item \emph{fasta} The FASTA file the clustering and hence the
+    \emph{split-set} was generated from.
+  \item \emph{pca} A projection onto principal components of the
+    afformentioned FASTA file, i.e. obtained with the \emph{kmer2pca}
+    tool mentioned in section \ref{sec-kmer2pca}.
+  \item \emph{dimensions} The number of dimensions of the PCA subspace in the
+    afformentioned \emph{pca} file.
+  \item \emph{split-set} The binary file that holds the clusters.
+  \item \emph{projections} A \emph{path/filename} combination where to put
+    the resulting projections of the clusters in PCA space. Each
+    cluster will generate a file with an individual number added to
+    the name.
+\end{enumerate}
+
+\lstset{language=bash,
+  caption={Calling the \emph{split\_set\_to\_projections} tool},
+  label=lst-ssproj-example}
+\begin{lstlisting}
+split_sets_to_projections test.fasta test.pca 7 /tmp/s0023 /tmp/s0023proj
+\end{lstlisting}
+In this case clusters stored in \emph{/tmp/s0023} a binary
+\emph{split-set} file are searched in the 7 dimensional subspace
+projection onto the principal components of a k-mer representation of
+the sequencies found in the \emph{test.fasta} FASTA file. The
+projections of each cluster are stored in a seperate file
+\emph{/tmp/s0023projX} where X is a number corresponding to each
+cluster. 

@@ -1,0 +1,181 @@
+Dataset read!
+Performing adaptive clustering with parameters: 
+minpts: 5
+epsilon_start: 1.000000
+epsilon_inc: 0.010000
+Initial set obtained with 19 clusters
+Sarting with 19 clusters
+Coverage at initial point: 0.477300
+Layer 1 has 17 clusters
+  Coverage at layer 1: 0.559100
+  Epsilon at layer 1: 1.030000
+Layer 2 has 14 clusters
+  Coverage at layer 2: 0.626700
+  Epsilon at layer 2: 1.050000
+Layer 3 has 12 clusters
+  Coverage at layer 3: 0.644400
+  Epsilon at layer 3: 1.070000
+Layer 4 has 8 clusters
+  Coverage at layer 4: 0.663300
+  Epsilon at layer 4: 1.080000
+Layer 5 has 7 clusters
+  Coverage at layer 5: 0.704100
+  Epsilon at layer 5: 1.100000
+Layer 6 has 4 clusters
+  Coverage at layer 6: 0.815400
+  Epsilon at layer 6: 1.180000
+Layer 7 has 3 clusters
+  Coverage at layer 7: 0.828200
+  Epsilon at layer 7: 1.190000
+Layer 8 has 2 clusters
+  Coverage at layer 8: 0.846800
+  Epsilon at layer 8: 1.200000
+Layer 9 has 1 clusters
+  Coverage at layer 9: 0.854600
+  Epsilon at layer 9: 1.220000
+Connections found: 
+Layer 9:
+  Cluster 0 connected to: 
+  0 1 
+Layer 8:
+  Cluster 0 connected to: 
+  0 2 
+  Cluster 1 connected to: 
+  1 
+Layer 7:
+  Cluster 0 connected to: 
+  0 2 
+  Cluster 1 connected to: 
+  1 
+  Cluster 2 connected to: 
+  3 
+Layer 6:
+  Cluster 0 connected to: 
+  0 1 2 3 4 5 6 
+  Cluster 1 connected to: 
+  
+  Cluster 2 connected to: 
+  
+  Cluster 3 connected to: 
+  
+Layer 5:
+  Cluster 0 connected to: 
+  0 
+  Cluster 1 connected to: 
+  1 
+  Cluster 2 connected to: 
+  
+  Cluster 3 connected to: 
+  2 
+  Cluster 4 connected to: 
+  
+  Cluster 5 connected to: 
+  4 
+  Cluster 6 connected to: 
+  5 6 7 
+Layer 4:
+  Cluster 0 connected to: 
+  0 1 2 4 7 
+  Cluster 1 connected to: 
+  
+  Cluster 2 connected to: 
+  5 
+  Cluster 3 connected to: 
+  3 
+  Cluster 4 connected to: 
+  6 
+  Cluster 5 connected to: 
+  8 10 
+  Cluster 6 connected to: 
+  9 
+  Cluster 7 connected to: 
+  11 
+Layer 3:
+  Cluster 0 connected to: 
+  0 2 
+  Cluster 1 connected to: 
+  1 
+  Cluster 2 connected to: 
+  3 
+  Cluster 3 connected to: 
+  4 
+  Cluster 4 connected to: 
+  6 
+  Cluster 5 connected to: 
+  5 
+  Cluster 6 connected to: 
+  7 
+  Cluster 7 connected to: 
+  8 
+  Cluster 8 connected to: 
+  9 13 
+  Cluster 9 connected to: 
+  10 
+  Cluster 10 connected to: 
+  11 
+  Cluster 11 connected to: 
+  12 
+Layer 2:
+  Cluster 0 connected to: 
+  0 3 4 
+  Cluster 1 connected to: 
+  1 
+  Cluster 2 connected to: 
+  
+  Cluster 3 connected to: 
+  2 
+  Cluster 4 connected to: 
+  
+  Cluster 5 connected to: 
+  8 
+  Cluster 6 connected to: 
+  5 
+  Cluster 7 connected to: 
+  6 
+  Cluster 8 connected to: 
+  7 
+  Cluster 9 connected to: 
+  9 10 11 12 14 15 16 
+  Cluster 10 connected to: 
+  
+  Cluster 11 connected to: 
+  13 
+  Cluster 12 connected to: 
+  
+  Cluster 13 connected to: 
+  
+Layer 1:
+  Cluster 0 connected to: 
+  0 1 2 3 4 5 6 8 10 11 
+  Cluster 1 connected to: 
+  
+  Cluster 2 connected to: 
+  
+  Cluster 3 connected to: 
+  
+  Cluster 4 connected to: 
+  
+  Cluster 5 connected to: 
+  7 
+  Cluster 6 connected to: 
+  
+  Cluster 7 connected to: 
+  
+  Cluster 8 connected to: 
+  9 
+  Cluster 9 connected to: 
+  12 13 15 16 17 
+  Cluster 10 connected to: 
+  14 
+  Cluster 11 connected to: 
+  
+  Cluster 12 connected to: 
+  
+  Cluster 13 connected to: 
+  18 
+  Cluster 14 connected to: 
+  
+  Cluster 15 connected to: 
+  
+  Cluster 16 connected to: 
+  

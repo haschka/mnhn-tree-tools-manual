@@ -1,0 +1,71 @@
+\section{consens} \label{sec-consens}
+
+\subsection{General}
+
+The \emph{consens} tool calculates a consens sequence from sequences found in
+a fasta file. Further the \emph{consens} tool gives a detailed information
+about the distribution of nucleotide sequences in a datasets.
+The sequences have to be aligned or quasi-aligned before calling the
+\emph{consens} tool. The tool currently only works with nucleotide
+sequences.
+
+\subsection{Usage}
+
+The \emph{consens} tool can be called like:
+\lstset{language=bash,
+  caption={Calling the \emph{consens} tool},
+  label=lst-consens-call}
+\begin{lstlisting}
+consens [fasta]
+\end{lstlisting}
+where the \emph{fasta} argument is a fasta file to perform the
+\emph{consens} calculation on.
+
+\subsection{Example}
+\lstset{language=bash,
+  caption={Example of the \emph{consens} tool},
+  label=lst-consens-example}
+\begin{lstlisting}
+consens test.fasta
+\end{lstlisting}
+calculates the consens of the sequences found in test fasta and
+provides you with an output like:
+\lstset{language={},
+  caption={Example output of the \emph{consens} tool},
+  label=lst-consens-example-output}
+\begin{lstlisting}
+Base       A          C          G          T       A       C       G       T
+G         10          5        230          5 0.04000 0.02000 0.92000 0.02000
+C         18        213          8         11 0.07200 0.85200 0.03200 0.04400
+T          0          0          0        250 0.00000 0.00000 0.00000 1.00000
+T          0          4          0        246 0.00000 0.01600 0.00000 0.98400
+C          0        246          0          4 0.00000 0.98400 0.00000 0.01600
+T          2          4          1        243 0.00800 0.01600 0.00400 0.97200
+T          3          2          6        239 0.01200 0.00800 0.02400 0.95600
+G          5          0        240          5 0.02000 0.00000 0.96000 0.02000
+A        245          3          0          2 0.98000 0.01200 0.00000 0.00800
+A        237          2         10          1 0.94800 0.00800 0.04000 0.00400
+G          8          0        241          1 0.03200 0.00000 0.96400 0.00400
+G          3          0        241          6 0.01200 0.00000 0.96400 0.02400
+G          9          4        234          3 0.03600 0.01600 0.93600 0.01200
+A        244          2          2          2 0.97600 0.00800 0.00800 0.00800
+A        246          3          0          1 0.98400 0.01200 0.00000 0.00400
+A        240          1          7          2 0.96000 0.00400 0.02800 0.00800
+G         15         11        222          2 0.06000 0.04400 0.88800 0.00800
+\end{lstlisting}
+where you are presented in the first column with the consensus
+sequence, from the second to the fifth column with the absolute number
+of the according bases found, and from the sixth to the ninth column
+with the percentage of each bases occuring at this position.
+The final line also shows some statistics:
+\lstset{language={},
+  caption={Example statistics output of the \emph{consens} tool},
+  label=lst-consens-example-output-statistics}
+\begin{lstlisting}
+     MEAN MAX ACCURACY: 0.897734 SIGMA: 0.091085
+\end{lstlisting}
+where \emph{MEAN MAX ACCURACY} is the mean of the highest percentage
+between the four nucleotide bases for each position and \emph{SIGMA} the
+square of the standard deviation.
+
+

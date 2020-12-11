@@ -1,0 +1,50 @@
+\section{filter\_split\_sets\_by\_min} \label{sec-filter-split}
+
+\subsection{General}
+
+The tools allows one to filter clusters obtained from an adaptive clustering
+run, such as with the tools outlined in section \ref{sec-adaptive-clust}, that
+contain less sequences than a certain treshold, and retain sequences that
+contain more sequence than this treshold.
+
+\subsection{Usage}
+
+The tool is to be called like:
+
+\lstset{language=bash,
+  caption={Calling the \emph{filter\_split\_sets\_by\_min} tool},
+  label=lst-filterssbymin-call}
+\begin{lstlisting}
+filter_split_sets_by_min [minimum] [filtered-split-sets-path-name] \
+   [input-split-sets]
+\end{lstlisting}
+where the arguments are:
+\begin{enumerate}
+\item \emph{minimum} An interger representing the minimum number of
+  sequences to be found in a cluster to be retained in the dataset
+\item \emph{filtered-split-sets-path-name} A path and name where the filtered
+  \emph{split-sets} should be stored.
+\item \emph{input-split-sets} The unfiltered \emph{split-sets} to filter using
+  this algorithm.
+\end{enumerate}
+
+\subsection{example}
+\lstset{language=bash,
+  caption={Example of the \emph{filter\_split\_sets\_by\_min} tool},
+  label=lst-filterssbymin-example}
+\begin{lstlisting}
+filter_split_sets_by_min 100 /tmp/f100s /tmp/s*
+\end{lstlisting}
+Here the program takes the \emph{split-sets}, clusters of each layer,
+and filters clusters that contain less then 100 sequences from the
+dataset. The new dataset without these clusters is written to
+\emph{/tmp/f100sX} where $X$ is the number for each layer in the
+output splitset. The selection using the wildcard works as the
+original split sets are name \emph{/tmp/sX} and the numbers $X$ are
+created in a way by the adaptive clustering tools such that the
+wildcard selection keeps them in correct order.
+
+\subsection{implementation}
+The code and the interface is implemented in
+\emph{filter\_split\_set\_by\_min.c}. The filtering mechanism in
+\emph{cluster\_io.c}

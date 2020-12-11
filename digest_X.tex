@@ -1,0 +1,41 @@
+\section{digest\_X}
+
+The \emph{digest\_X} tools allow you to virtually digest a sequence
+using restriction enzymes creating a FASTA file with the sequences
+cutted appart. Currently following tools corresponding to the following
+restrinction enzymes are implemented: \emph{digest\_XbaI}, \emph{digest\_XmnI}
+and \emph{digest\_HindIII}. 
+
+\subsection{Usage}
+The tools can be used in the following manner:
+\lstset{language=bash,
+  caption={Calling the \emph{digest\_X} tools},
+  label=lst-digest-call}
+\begin{lstlisting}
+digest_XbaiI [fasta] [n-threads] > [fasta-out]
+digest_XmnI [fasta] [n-threads] > [fasta-out]
+digest_HindIII [fasta] [n-threads] > [fasta-out]
+\end{lstlisting}
+with the arguments:
+\begin{enumerate}
+\item \emph{fasta} A FASTA file. Only the first sequence of the \emph{fasta}
+  file will be digested.
+\item \emph{n-threads} How many threads to use for this digestion process.
+\item \emph{fasta-out} A fasta file containing the digested sequences.
+\end{enumerate}
+
+\subsection{Example}
+\lstset{language=bash,
+  caption={Example of the \emph{digest\_X} tools},
+  label=lst-digest-example}
+\begin{lstlisting}
+digest_HindIII test.fasta 8 > digested.fasta
+\end{lstlisting}
+Digests the first sequence stored in \emph{test.fasta} and stores the resulting
+sequences in \emph{digested.fasta}. The digestion process can use up to eight
+threads on the machine it runs on. The restriction enzyme used for this
+virtual digestion is HindIII. 
+
+\subsection{Implementation}
+The interface to the \emph{digest\_X} tools is implemented in \emph{digester.c}
+The digestion engine is implemented in \emph{restriction\_digest.c}. 

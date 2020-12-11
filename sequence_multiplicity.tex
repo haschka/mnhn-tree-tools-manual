@@ -1,0 +1,46 @@
+\section{sequence\_multiplicity} \label{sec-seqmult}
+
+\subsection{General}
+
+The \emph{sequence\_multiplicity} finds unique sequences in a FASTA file and
+allows one to know how often a unique sequence appears in the FASTA
+file.
+
+\subsection{Usage}
+
+One can call the \emph{sequence\_multiplicity} tool like:
+\lstset{language=bash,
+  caption={Calling the \emph{sequence\_multiplicity} tool},
+  label=lst-sequencemultiplicity-call}
+\begin{lstlisting}
+sequence_multiplicity [fasta] > [fasta-out]
+\end{lstlisting}
+with the arguments:
+\begin{enumerate}
+\item \emph{fasta} a FASTA file to find unique sequences in.
+\item \emph{fasta-out} the unique sequences in FASTA format.
+\end{enumerate}
+
+\subsection{Example}
+\lstset{language=bash,
+  caption={Example of the \emph{sequence\_multiplicity} tool},
+  label=lst-sequencemultiplicity-example}
+\begin{lstlisting}
+sequence_multiplicity test.fasta > out.fasta
+\end{lstlisting}
+Finds unique sequences in \emph{test.fasta} and writes them into
+\emph{out.fasta}. Each sequence in the \emph{out.fasta} file contains
+a suffix number telling you how many times this sequence occured in
+the original dataset. 
+\lstset{language={},
+  caption={Example a line in \emph{out.fasta}},
+  label=lst-sequencemultiplicity-example-out}
+\begin{lstlisting}
+>sequence_2_2344 
+\end{lstlisting}
+Tells you that the third FASTA file, we count from 0 onwards in the
+input file, appears 2344 times in the dataset.  
+
+\subsection{Implementation}
+Finding unique sequences is implemented in \emph{dataset.c} while
+the interface is implemented in \emph{sequence\_multiplicity.c}. 

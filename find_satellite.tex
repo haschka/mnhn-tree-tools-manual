@@ -1,0 +1,59 @@
+\section{find\_satellite}
+
+\subsection{General}
+
+The \emph{find\_satellite} is a filtering tool narrowing down a FASTA
+dataset of similar sequences. The filter can filter sequences by
+length, and by Smith Waterman distance to a template sequence. The
+Smith Waterman algorithm is implemented as shown in
+\ref{sec-dbscan-algorithm}. This tool only works with nucleotide
+sequences. 
+
+\subsection{Usage}
+The tool is to be called like:
+\lstset{language=bash,
+  caption={Calling the \emph{find\_satellite} tool},
+  label=lst-findsat-call}
+\begin{lstlisting}
+find_satellite [fasta-ds] [fasta-target] [size] [size+] [size-] \
+  [sw-dist] [n-threads] > [fasta-filtered]
+\end{lstlisting}
+where the arguments are:
+\begin{enumerate}
+  \item \emph{fasta-ds} A FASTA dataset of the sequences that should be searched
+    for according to the pattern selected by the following arguments.
+  \item \emph{fasta-target} A FASTA file holding the target sequence
+    from which the Smith Waterman distance will be calculated.
+  \item \emph{size} The size of the sequence to be seached for with
+    the tolerance intervals given be the subsequent arguments.
+  \item \emph{size+} How many nucleotides above the size sequences are
+    accepted.
+  \item \emph{size-} How many nucleotides below the size sequences are
+    accepted.
+  \item \emph{sw-dist} The maximum Smith Waterman distance from the
+    target sequence to accept sequences.
+  \item \emph{n-threads} The number of parallel threads this
+    computation may use.
+  \item \emph{fasta-filtered} A FASTA file where the sequences that
+    met the filtering critera above are written to. 
+\end{enumerate}
+
+\subsection{Example}
+\lstset{language=bash,
+  caption={Example of the \emph{find\_satellite} tool},
+  label=lst-findsat-example}
+\begin{lstlisting}
+find_satellite test.fasta target.fasta 100 5 3 20 8 > filtered.fasta
+\end{lstlisting}
+Here the tool searches for sequences in \emph{test.fasta} that are
+less then a Smith Waterman distance of 20 away from the sequence
+stored in \emph{target.fasta}. Sequences that are between 97 and 105
+nucleotides long are accepted. The resulting sequences are stored to
+\emph{filtered.fasta}
+
+\subsection{Implementation}
+The tools interface is implemented in \emph{find\_satellite.c}. The
+mechanism is implemented in \emph{filter.c}.
+
+
+    

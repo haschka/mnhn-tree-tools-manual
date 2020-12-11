@@ -1,0 +1,94 @@
+\section{replace\_N\_sequence}
+
+
+\subsection{General}
+
+\emph{replace\_N\_sequence} Is a tool to replace sequences that are
+holding N letters in them with all possible combinations
+possible. This tool currently only works with nucleotide sequences.
+
+\subsection{Usage}
+
+The tool can be called like:
+\lstset{language=bash,
+  caption={Calling the \emph{replace\_N\_sequence} tool},
+  label=lst-repnseq-call}
+\begin{lstlisting}
+replace_N_sequence [fasta] [sequence-index] [fasta-out]
+\end{lstlisting}
+where the arguments are as follows:
+\begin{enumerate}
+\item \emph{fasta} A FASTA file holding sequences
+\item \emph{sequence-index} An index to select a sequence from the
+\item \emph{fasta} file. In this tool the first sequence is selected by
+  1.
+\item \emph{fasta-out} All possible permutations by replacing the N
+  letters in the sequence.
+\end{enumerate}
+
+\subsection{Example}
+Let us imagine a fasta file like the following:
+\lstset{language={},
+  caption={Fasta example for the \emph{replace\_N\_sequence} tool},
+  label=lst-repnseq-fastaex}
+\begin{lstlisting}
+>sequence1
+ACGT
+>sequence2
+ANNT
+>sequence3
+ANTG
+\end{lstlisting}
+We would like to get all sequences possible by replacing the N letters
+in the second sequence, hence we call the utility like:
+\lstset{language=bash,
+  caption={Fasta example for the \emph{find\_satellite} tool},
+  label=lst-repnseq-example}
+\begin{lstlisting}
+replace_N_sequence test.fasta 2 /tmp/out.fasta
+\end{lstlisting}
+And get a \emph{/tmp/out.fasta} that looks like:
+\lstset{language={},
+  caption={Fasta example for the \emph{replace\_N\_sequence} tool},
+  label=lst-repnseq-fastaout}
+\begin{lstlisting}
+>sequence_0
+AAAT
+>sequence_1
+ACAT
+>sequence_2
+AGAT
+>sequence_3
+ATAT
+>sequence_4
+AACT
+>sequence_5
+ACCT
+>sequence_6
+AGCT
+>sequence_7
+ATCT
+>sequence_8
+AAGT
+>sequence_9
+ACGT
+>sequence_10
+AGGT
+>sequence_11
+ATGT
+>sequence_12
+AATT
+>sequence_13
+ACTT
+>sequence_14
+AGTT
+>sequence_15
+ATTT
+\end{lstlisting}
+
+\subsection{implementation}
+The tools interface is implemented in
+\emph{replace\_N\_sequence.c}. The mechanism is implemented in
+\emph{kmers.c}.
+
+

@@ -1,0 +1,89 @@
+\section{split\_set\_from\_annotation} \label{sec-ssannotation}
+
+\subsection{General}
+
+This tool allows you to generate binary clustering sets such as those created
+using by an adaptive clustering run by hand, annotating each cluster.
+
+\subsection{Usage}
+The tool can be used like:
+\lstset{language=bash,
+  caption={Calling the \emph{split\_set\_from\_annotation} tool},
+  label=lst-ssannotation-call}
+\begin{lstlisting}
+split_set_from_annotation [fasta-ds] [annotation] [unique-annotations] \
+  [split-set]
+\end{lstlisting}
+with the following arguments:
+\begin{enumerate}
+\item \emph{fasta-ds} A FASTA file that shall be clustered according to the
+  annotations in the \emph{annotation} file.
+\item \emph{annotation} The annotation file, containing a line for each
+  sequence in the \emph{fasta-ds} file. An annotation can be any chosen word.
+  If a line contains only a dash '-', the sequence will not be part of any of
+  the possible clusters.
+\item \emph{unique-annotations} The database of possible annotations.
+  For each cluster the word used to annotate sequences in the \emph{annotation}
+  file an entry containing the word corresponding to this cluster is made.
+  A sole entry. The entries shall be made in cluster order that you wish
+  to have in the resulting binary \emph{split-set} file.
+\item \emph{split-set} The resulting binary clustering or \emph{split-set}
+  file.
+\end{enumerate}
+\subsection{Example}
+We imagine a fasta file:
+\lstset{language={},
+  caption={Example of a dataset clustered with the \emph{split\_set\_from\_annotation} tool},
+  label=lst-ssannotation-example-fasta}
+\begin{lstlisting}
+>sequence1
+AACCTT
+>sequence2
+AGCCTT
+>sequence3
+TTTTTT
+>sequence4
+AAACTT
+>sequence5
+AAACGT
+>sequence6
+AAAGCT
+\end{lstlisting}
+and we want to cluster this file into two clusters, one containing
+sequence 1, and sequence 2 while the second cluster is composed of
+sequence 4, 5 and 6. We would like to omit sequence 3 from the
+clustering. As such we create an annotations file like:
+\lstset{language={},
+  caption={Example of an \emph{annotation} file for the \emph{split\_set\_from\_annotation} tool},
+  label=lst-ssannotation-example-annotations}
+\begin{lstlisting}
+one
+one
+-
+two
+two
+two
+\end{lstlisting}
+As shown we annotate all sequences of the first cluster with one, and
+all sequences of the second cluster with two. We omit the third
+sequence by annotating it with a dash '-'. Further we need to write a
+file containing all the words that we used to annotate our clusters.
+\lstset{language={},
+  caption={Example of an \emph{unique-annotations} file for the \emph{split\_set\_from\_annotation} tool},
+  label=lst-ssannotation-example-unique-annotations}
+\begin{lstlisting}
+one
+two
+\end{lstlisting}
+With the files at hand we can call the tool:
+\lstset{language={},
+  caption={Example of the \emph{split\_set\_from\_annotation} tool},
+  label=lst-ssannotation-example}
+\begin{lstlisting}
+split_set_from_annotation test.fasta annotation unique-annotations /tmp/out-set
+\end{lstlisting}
+and obtain the binary \emph{split-set} clustering for the clustering
+at our wish in \emph{/tmp/out-set}.
+
+\subsection{Implementation}
+The tool is implemented in \emph{split\_set\_from\_annotation.c}.

@@ -1,0 +1,71 @@
+\section{compare\_norms}
+
+\subsection{General}
+
+The compare norms utility allows you to calculate distances between sequences
+in a dataset using the Smith Waterman Distance or a distance in the a
+principal components subspace of k-mers.
+
+\subsection{Usage}
+
+The \emph{compare\_norms} tool compares distances between all
+sequences in a fasta file in Smith Waterman distance and in a subspace
+yielded by PCA. 
+
+\lstset{language=bash,
+  caption={Calling the \emph{compare\_norms} tool},
+  label=lst-comparenorms-call}
+\begin{lstlisting}
+compare_norms [fasta] [pca] [dimensions] > [output]
+\end{lstlisting}
+where the arguments are:
+\begin{enumerate}
+  \item \emph{fasta} A fasta file containing the sequences to
+    calculate the distances in between them.
+  \item \emph{pca} A corresponding projection onto principal
+    components from k-mers as obtained by the \emph{kmer2pca} tool
+    outlined in section \ref{sec-kmer2pca}
+  \item \emph{dimensions} The number of projections per sequence to be
+    found in the \emph{pca} file.
+  \item \emph{output} A file where to output the results.
+\end{enumerate}
+
+\subsection{Algorithm}
+The Smith Waterman algorithm is used in the same way as pointed out in
+section \ref{sec-dbscan-algorithm}. The distance based on the
+projections is calculated in $L_2$ and $L_1$ norm.
+
+\subsection{Example}
+\lstset{language=bash,
+  caption={Example of the \emph{compare\_norms} tool},
+  label=lst-comparenorms-example}
+\begin{lstlisting}
+compare_norms test.fasta test.pca 7 > distances
+\end{lstlisting}
+The \emph{compare\_norm} tool calculates the distances between the
+sequences within the \emph{test.fasta} in Smith Waterman distance and
+in $L_1$ and $L_2$ norm in the 7 dimensional PCA subspace.
+
+The distances file contains, per line as first and second integers the
+index of the sequences compared. The third position
+the Smith Waterman distance, the fourth distance position is the
+distance in the PCA subspace in $L_2$ norm and the fifth in $L_1$
+norm.
+A sample output of looks like this:
+\subsection{Example}
+\lstset{language=bash,
+  caption={Example output of the \emph{compare\_norms} tool},
+  label=lst-comparenorms-example-output}
+\begin{lstlisting}
+i j SW L1 L2
+1 0 82.000000 2.546303 6.056748
+2 0 122.000000 5.428422 10.829566
+2 1 84.000000 4.875662 10.343906
+3 0 96.000000 4.237413 8.629056
+3 1 88.000000 4.427232 8.065469
+3 2 118.000000 5.210451 12.005179
+4 0 80.000000 3.201523 7.927563
+4 1 72.000000 3.526202 7.919044
+4 2 106.000000 6.843701 14.724481
+\end{lstlisting}
+
