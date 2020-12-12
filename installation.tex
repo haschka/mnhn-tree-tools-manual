@@ -1,9 +1,9 @@
 \chapter{Installation}
 
 In this chapter we will provide you with the details that allow you to
-install \emph{MNHN-Tools}. The primary distribution method is in the
+install \emph{MNHN-Tree-Tools}. The primary distribution method is in the
 form of source code on github: \newline
-\url{https://github.com/haschka/mnhn} \newline
+\url{https://gitlab.in2p3.fr/mnhn-tools/mnhn-tree-tools} \newline
 
 For a full installation a machine with a UNIX or UNIX-like system
 is required. The machine currently has to be of \emph{x86\_64}
@@ -27,15 +27,15 @@ You may make sure that you not only have the binary versions of the
 supporting libraries installed but also the header files, otherwise
 the software will not be able to compile. As such you may need to
 install the developer \emph{-dev} versions of the libraries. In the
-next step you may clone the \emph{MNHN-Tools} source code from github.
+next step you may clone the \emph{MNHN-Tree-Tools} source code from github.
 You can do this by issuing the following command in your UNIX
 terminal:
 \lstset{language=bash,
   caption={Cloning the source from github.},
   label=lst-git-clone}
 \begin{lstlisting}                                                              
-git clone https://github.com/haschka/mnhn.git
-cd mnhn
+git clone https://gitlab.in2p3.fr/mnhn-tools/mnhn-tree-tools.git
+cd mnhn-tree-tools
 \end{lstlisting}
 Cloned and enterd the mnhn directory you need to edit the head of the
 make file to suite your UNIX systems needs, select the correct compiler
@@ -68,7 +68,7 @@ With your flags adjusted you may compile the code issuing
 mkdir bin
 make all
 \end{lstlisting}
-If you do not need the full functionality of \emph{MNHN-Tools} you can
+If you do not need the full functionality of \emph{MNHN-Tree-Tools} you can
 install each tool individually by calling:
 \lstset{language=bash,
   caption={Building individual tools},

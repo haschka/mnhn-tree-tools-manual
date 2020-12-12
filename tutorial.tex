@@ -2,7 +2,7 @@
 
 In this capter we will walk you through basic manipulations of nucleic
 datasets, tree building, naming conventions and overall usage to get
-you started with \emph{MNHN-Tools}.
+you started with \emph{MNHN-Tree-Tools}.
 
 \section{Preparing your data}
 
@@ -34,7 +34,7 @@ If your file contains lines that are longer then the 1000 character
 limit you may convert it to
 a conforming FASTA file using the \emph{seqret} tool from EMBOSS
 \cite{emboss}.
-Several application domains of \emph{MNHN-Tools} are used to use FASTQ files.
+Several application domains of \emph{MNHN-Tree-Tools} are used to use FASTQ files.
 If you have datasets in this format you may use the following
 \emph{bash} script to convert your FASTQ files to FASTA files. 
 \lstset{language=bash,
@@ -49,7 +49,7 @@ In such a case it might also be necessary to apply \emph{seqret} from
 EMBOSS on the FASTA files resulting from this conversion in order to
 ensur appropriate line lengths. 
 
-Before using a dataset with \emph{MNHN-Tools} you further may make
+Before using a dataset with \emph{MNHN-Tree-Tools} you further may make
 sure that it is suited for the task that you would like to
 achieve. The tools presented herein are in general made to
 compare sequences of at least a reasonable similarity. As calculating
@@ -184,13 +184,13 @@ and directly access the sequences. This tool is highlighted in section
 
 \section{Adaptive Clustering}
 
-One core feature of the \emph{MNHN-Tools} is an adaptive density
+One core feature of the \emph{MNHN-Tree-Tools} is an adaptive density
 based clustering algorithm that can be used to study phylogenetic
 features and the evolution of species by investigating typical
 DNA barcoding targets such as the 16S or 18S ribosomal RNA or
 Cyclooxygenase 1 (COX1) coding regions. Further the tool might be of
 use for all kinds of purposes where similar sequence clusters are to
-be investigated. As such \emph{MNHN-Tools}
+be investigated. As such \emph{MNHN-Tree-Tools}
 was successfully applied in the quest to discover families of
 α-satellites, repeated sequences, in the human genome.
 
@@ -223,7 +223,7 @@ illustration of the algorithm is shown in figure
   \includegraphics{densities-space.pdf}
   \caption{The adaptive clustering algorithm finds dense (new)
     clusters in less dense (old) more dispersed clusters. Finally the
-    \emph{MNHN-Tools} collection allows us to build a tree from like
+    \emph{MNHN-Tree-Tools} collection allows us to build a tree from like
     the one on the right, from a sequence space as the one on the
     left.}
   \label{fig-adaptive-cluster}
@@ -253,7 +253,7 @@ guessed what is next. In the \emph{cl-out} file different there is at
 the lower and a list of connections between different clusters at
 different layers. The next step is to build a tree, or a dendogram
 representing the density structure of our dataset and hence obtain the
-left side of figure \ref{fig-adaptive-cluster}. \emph{MNHN-Tools} comes
+left side of figure \ref{fig-adaptive-cluster}. \emph{MNHN-Tree-Tools} comes
 with a tool to infer a Newick tree \cite{newick} from the clusters
 obtained during an adaptive clustering run. Here we run the tool
 \emph{split\_sets\_to\_newick} outlined in section \ref{sec-ssnewick}
@@ -307,7 +307,7 @@ Lets say we would like to identify the clustrs \emph{L5C0} containing
 3216 sequences and \emph{L5C6} containing 3784 clusters. Both at the
 forefront of two large subtrees. In order to acces the sequences in
 these clusters we have to convert layer 5 to FASTA files. Layer 5
-exists by \emph{MNHN-Tools} convention in a binary \emph{split-set}
+exists by \emph{MNHN-Tree-Tools} convention in a binary \emph{split-set}
 file named with the suffix number \emph{0005}, hence in our case, as
 demanded by the command in listing \ref{lst-adaptivecluster-tutorial}
 named in the folder \emph{clusters} named \emph{L0005}. In order to
@@ -465,7 +465,7 @@ written out sequencial by the \emph{virtual\_evolution} tool the
 first 5000 sequences belong to the first partition, the next 5000
 sequences belong to the second partition. We can thus generate an
 artificial clustering or binary \emph{split-set} in order to further
-investigate the two known partitions with the \emph{MNHN-Tools}. In
+investigate the two known partitions with the \emph{MNHN-Tree-Tools}. In
 order to generate such a \emph{split-set} we will use the
 \emph{split\_set\_from\_annotation} tool outlined in section
 \ref{sec-ssannotation}. In order to do this with first have to
