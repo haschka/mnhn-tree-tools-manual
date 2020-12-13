@@ -1,5 +1,7 @@
 \chapter{Installation}
 
+\section{Generic Install}
+
 In this chapter we will provide you with the details that allow you to
 install \emph{MNHN-Tree-Tools}. The primary distribution method is in the
 form of source code on github: \newline
@@ -81,3 +83,26 @@ This might especially be convenient if you are not able to install all
 the libraries in question on your system as the tool that you might
 really need might not depend on the library that you might not be able
 to install.
+
+\section{Quick Install on Debian 10}
+If you just want to get all tools working quickly we provide you with the
+following quick install script for \emph{Debian 10} and derived distributions:
+
+\lstset{language=bash,
+  caption={Installing MNHN-Tree-Tools on Debian 10},
+  label=lst-debian-install}
+\begin{lstlisting}
+sudo apt-get install git build-essential libpng-dev libsdl2-dev \
+ liblapack-dev libopenmpi-dev libpocl-dev ocl-icd-opencl-dev pocl-opencl-icd
+
+git clone https://gitlab.in2p3.fr/mnhn-tools/mnhn-tree-tools.git
+
+cd mnhn-tree-tools
+mkdir bin
+make all
+cd bin
+
+# make MNHN-TREE-TOOLS available from any folder ( this is temporary, you
+# may modify your .bashrc and similar files to make this permanent
+export PATH=$PATH:$PWD
+\end{lstlisting}
