@@ -1,6 +1,6 @@
 \chapter{Installation}
 
-\section{Generic Install}
+\section{Generic Installation} \label{sec-inst-generic}
 
 In this chapter we will provide you with the details that allow you to
 install \emph{MNHN-Tree-Tools}. The primary distribution method is in the
@@ -84,8 +84,8 @@ the libraries in question on your system as the tool that you might
 really need might not depend on the library that you might not be able
 to install.
 
-\section{Quick Install on Debian 10}
-If you just want to get all tools working quickly we provide you with the
+\section{Quick Installation on Debian 10 / Ubuntu 20.04}
+If you just want to get all tools working quickly, we provide you with the
 following quick install script for \emph{Debian 10} and derived distributions:
 
 \lstset{language=bash,
@@ -106,3 +106,8 @@ cd bin
 # may modify your .bashrc and similar files to make this permanent
 export PATH=$PATH:$PWD
 \end{lstlisting}
+
+For optimal performance we recommend you to use a more elaborate
+installation as shown in section \ref{sec-inst-generic} as this allows
+to run OpenCL code on the GPU and the use of optimized math
+(Lapack) and MPI libraries that might be available on your system. 
