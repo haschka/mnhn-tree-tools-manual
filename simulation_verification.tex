@@ -24,11 +24,11 @@ with the arguments:
     dataset as generated with the tools in section
     \ref{sec-virtual-ev}.
   \item \emph{partitions} The number of partitions in the dataset as
-    choosen during the virtual evolution run.
+    chosen during the virtual evolution run.
   \item \emph{precision} How many sequences have to attributed
     correctly to a family or cluster in order to be proven to be
     correct. If you chose for instance 0.8 here a family of 1000
-    sequences can only be found in clusters that have bettween 800 and
+    sequences can only be found in clusters that have between 800 and
     1200 sequences and hold at least 800 sequences of the of the
     original partition. 
   \item \emph{split-sets} The binary clusters layer files that are the
@@ -44,7 +44,7 @@ with the arguments:
 simulation_verification sim.fasta 10 0.8 /tmp/s*
 \end{lstlisting}
 Here the simulation verification tool uses the simulated dataset
-sim.fasta which contains 10 partions and sees if clusters during an
+sim.fasta which contains 10 partitions and sees if clusters during an
 adaptive clustering run yielded at least in one layer the correct
 attribution of a family under the precision criteria 0.8.
 

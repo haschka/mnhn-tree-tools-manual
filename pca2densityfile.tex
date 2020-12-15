@@ -5,10 +5,10 @@
 The \emph{pca2densityfile} functions similar to the
 \emph{pca2densitymap} tool outlined in section
 \ref{sec-pca2densitymap}. It generates a two dimensional histogram
-accross a 2 dimensional PCA projection by selection of a grid
+across a 2 dimensional PCA projection by selection of a grid
 spacing. The tool then outputs the densities for each tile to a text
 file that can be used for further processing, or external
-visualisation tools.
+visualization tools.
 
 \subsection{Usage}
 
@@ -28,7 +28,7 @@ with the arguments:
     outlined in section \ref{sec-kmer2pca}.
   \item \emph{pca} The projections onto the principal components.
   \item \emph{dimensions} How many principal components have been
-    retained, the dimensionaly of the PCA subspace stored in the
+    retained, the dimensionality of the PCA subspace stored in the
     \emph{pca} file.
   \item \emph{interval-length} The grid distance, i.e. the tile size
     of the histogram.
@@ -75,8 +75,8 @@ n points y:     89
 15 0 0
 \end{lstlisting}
 In the beginning of the output file you can see a shift x and y value
-which tells us about the origin of the file, futher it tells you how many
-tiles it has generated accroding to the \emph{interval-length}
+which tells us about the origin of the file, further it tells you how many
+tiles it has generated according to the \emph{interval-length}
 parameter. This header is followed by the data which is represented as
 three values per line. The x and y coordinate ( of the tile ) i.e. the
 number of tile that you are in, and the number of sequences in this

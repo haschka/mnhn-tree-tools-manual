@@ -24,7 +24,7 @@ with arguments as follows:
     labels we suggest the user to filter with the
     \emph{filter\_split\_sets\_by\_min} tool, as shown in section
     \ref{sec-filter-split}, prior using this tool and
-    apply no filter. This parameter is kept for conviniance.
+    apply no filter. This parameter is kept for convenience.
   \item \emph{lengths-from-output} Use distances between nodes of the
     Newick tree using parameters found in the output file of an
     adaptive clustering run with a tool shown in section
@@ -35,12 +35,12 @@ with arguments as follows:
     with a sidelength of $2\epsilon$ to calculated the volume, 2 uses
     a hypersphere with radius $\epsilon$.
   \item \emph{dimensions} As the lengths between the nodes correspond
-    to density differences we need the dimensons to calculate the
+    to density differences we need the dimensions to calculate the
     volume from the different $\epsilon$ radiuses found in the
     \emph{outfile} file. As a basic guidance choose the number of
-    projections onto principal componants that you have used if this
-    run was perfomed with PCA data. Otherwise choose 1 or a value to
-    your convinience.
+    projections onto principal components that you have used if this
+    run was performed with PCA data. Otherwise choose 1 or a value to
+    your convenience.
   \item \emph{outfile} The \emph{output} file from an adaptive
     clustering run generate from one of the tools outlined in section
     \ref{sec-filter-split}.
@@ -73,7 +73,7 @@ for the hyperspherical case. Here $d$ is the number of dimensions
 and $\Gamma$ is the $\Gamma$ function.
 
 The algorithm builds the Newick file using a recursive function traversing
-the the nodes. Connections between nodes in different layers are made
+the nodes. Connections between nodes in different layers are made
 if from a denser layer a cluster is contained at least at 80\% in a
 cluster of a less dense layer. 
 
@@ -93,7 +93,7 @@ files. A \emph{minPoints} argument of 4 was used during the adaptive
 clustering run, which was PCA based and operated on a seven
 dimensional subspace spun by the principal components. 
 
-\subsection{Implemenatation}
+\subsection{Implementation}
 The interface for Newick tree generation is implemented in
 \emph{split\_sets\_to\_newick.c}, algorithms for tree generation are
 found in \emph{cluster\_io.c}.

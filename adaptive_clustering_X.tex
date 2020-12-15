@@ -42,9 +42,9 @@ adaptive_clustering_SW_MPI_GPU [fasta] [initial-epsilon] [delta-epsilon] \
 which have the following arguments:
 \begin{enumerate}
   \item \emph{fasta} The FASTA file containing the dataset to be
-    adaptivly clustered and to have a tree built from.
+    adaptive clustered and to have a tree built from.
   \item \emph{kmers} A k-mer representation of a dataset to be
-    adaptivly clustered and to have a tree built from. Such a set can
+    adaptive clustered and to have a tree built from. Such a set can
     be obtained by the \emph{fasta2kmer} tool highlighted in section
     \ref{sec-fasta2kmer}
   \item \emph{initial-epsilon} The initial epsilon to start an adaptive
@@ -52,12 +52,12 @@ which have the following arguments:
   \item \emph{delta-epsilon} The increase in epsilon between
     successive calls of the DBSCAN algorithm.
   \item \emph{minPoints} The number of sequences need to be found
-    within an epsilon neighbourhood to form or expand a cluster.
+    within an epsilon neighborhood to form or expand a cluster.
   \item \emph{split-sets} A split is a binary file to hold entire clustering
     results. As the algorithm creates multiple split sets ( one for
     each stage of the tree ) a path with a named prefix has to be
     given. The splitsets are named by the argument given with a
-    running number at the end starting at 0 for the outhermost leaves
+    running number at the end starting at 0 for the outermost leaves
     of the tree counting upwards until only a single cluster can be
     formed, the one with the lowest density.
   \item \emph{n-threads} The number of threads this run can be allowed
@@ -76,20 +76,20 @@ sequence density defined by the parameters \emph{initial-epsilon} and
 successive increasing $\epsilon$ by \emph{delta-epsilon} and hence
 successive DBSCAN runs several clusterings with ever decreased
 densities are generated. Clusterings with contain a higher or the same
-number of clusters as the previous DBSCAN runs are discarted, only
+number of clusters as the previous DBSCAN runs are discarded, only
 clustering results with less clusters in lesser density run are kept,
 until a system with a single cluster is reached. We further remark
 that a result can be obtained at any specified density à posteriory if
 the researcher requests to do so with the \emph{cluster\_dbscan\_X}
 tools highlighted in section \ref{sec-dbscan-cluster}. We shall also
 outline that this forced monotony in an every decreasing number of
-clusters also makes the importance of a wisely choosen starting point:
+clusters also makes the importance of a wisely chosen starting point:
 \emph{initial-epsilon} and \emph{minpoints} necessary. The starting
-point shall be choses at a density where the highest number of
+point shall be chooses at a density where the highest number of
 clusters is suspected.
 From these multiple clustering results at different densities we can
-infer a hirachy by comparing clusters of different layers and
-veryfying weather they assumed smaller clusters at higher densities
+infer a hierarchy by comparing clusters of different layers and
+verifying weather they assumed smaller clusters at higher densities
 are a part of larger clusters in results from cluster runs at lesser
 densities. Connections between clusters are created and print to the
 output file if a cluster from a higher density is contained at least
@@ -101,16 +101,16 @@ functioning of the algorithm is outlined in figure
   \includegraphics[scale=0.8]{algorithm.pdf}
   \end{center}
   \caption{\textbf{Building trees from sequences:} Highlights our
-    algorithm, and its three parameter input $\epsilon$ the inital
-    epsilon neighborhood radius for the DBSCAN algorith, $\Delta
+    algorithm, and its three parameter input $\epsilon$ the initial
+    epsilon neighborhood radius for the DBSCAN algorithm, $\Delta
     \epsilon$ the increase of $\epsilon$ in every step and minpts the
-    minimal number of points to be found in an epsilon neigbourhood to
+    minimal number of points to be found in an epsilon neighborhood to
     either extend or create a cluster. $n$ in the
     diagram represents the number of clusters of the current DBSCAN
     run, $n(\mathrm{prev})$ the number of clusters of the previous
     run. $t$ at the treebuilding side, the stepnumber and hence, how
     often DBSCAN has been run.
-    The algorithm works itself from right to the left throught the
+    The algorithm works itself from right to the left through the
     tree, detecting first using a small $\epsilon$ very dense clusters
     of nucleic sequences and hence, clusters that are highly conserved
     in sequence. In increasing DBSCANS $\epsilon$ from layer to layer,
@@ -147,7 +147,7 @@ test.fasta by applying DBSCAN on the 7 dimensional k-mer subspace
 defined by the projections onto the principal components stored in
 test.pca. The \emph{inital-epsilon} is defined to be 0.02, the
 \emph{delta-epsilon} is defined to be 0.01 and a minimum number of
-points for cluster expansion or creatin is defined to be four.
+points for cluster expansion or creation is defined to be four.
 The resulting clusters for each run are stored in binary form at
 \emph{/tmp/out-splists-X} where X counts from 0 to the number of
 layers calculated until only a single cluster was found due to the
@@ -155,5 +155,5 @@ small density at a large $\epsilon$.
 
 \subsection{Implemenation}
 The algorithm and its interfaces are implemented in
-\emph{adaptive\_clustering.c}. The code makes havyly use of the DBSCAN
+\emph{adaptive\_clustering.c}. The code makes heavily use of the DBSCAN
 algorithm implemented in \emph{dbscan.c}. 

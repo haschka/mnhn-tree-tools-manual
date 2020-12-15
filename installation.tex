@@ -13,7 +13,7 @@ architecture and support the \emph{AVX} instruction set. In order to
 compile the full suite of tools you need a toolchain, consisting of:
 \begin{itemize}
 \item \emph{make:} Which is required to build the suite and various subsets
-\item \emph{compiler/linker:} A working C compilier, the suite was found to
+\item \emph{compiler/linker:} A working C compiler, the suite was found to
   compile with \emph{gcc} and \emph{clang}.
 \item \emph{BLAS/LAPACK} An implementation of the BLAS/LAPACK
   libraries.
@@ -39,13 +39,14 @@ terminal:
 git clone https://gitlab.in2p3.fr/mnhn-tools/mnhn-tree-tools.git
 cd mnhn-tree-tools
 \end{lstlisting}
-Cloned and enterd the mnhn directory you need to edit the head of the
+Cloned and entered the mnhn-tree-tools
+directory you need to edit the head of the
 make file to suite your UNIX systems needs, select the correct compiler
 flags and linking commands to the libraries. You may consult the
 forums and documentation of your System/Distribution to find the
 correct values. In general \emph{CC} is the command of your compiler,
-\emph{MPICC} the MPI wrapper of your compilier. \emph{CFLAGS} the
-options that you want to pass to your compilier. The other options are
+\emph{MPICC} the MPI wrapper of your compiler. \emph{CFLAGS} the
+options that you want to pass to your compiler. The other options are
 the flags required by the linker to find the appropriate libraries.
 \lstset{language=make,
   caption={Head of the Makefile},

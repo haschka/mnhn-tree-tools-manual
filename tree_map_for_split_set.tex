@@ -7,7 +7,7 @@ certain cluster are found in a different cluster. This tool can also
 used in conjunction with different graphics software to build more
 complex trees by overlaying the graphics that can be generated with
 the help of this tool. This tool generates \emph{map} files that you
-can use together with the Newick tools published by the unversity of
+can use together with the Newick tools published by the university of
 Geneva \cite{newick_tools}.
 
 \subsection{Usage}
@@ -27,7 +27,7 @@ where the arguments are the following:
     clustering run has generated clusters and hence a tree structure.
   \item \emph{number-of-clusters} how many clusters to color in the
     same diagram. Currently more than 1 cluster might result in
-    inpredictable behavoir.
+    unpredictable behavior.
   \item \emph{gradient-type}
     Colors the clusters from white to the desired color ( by number of
     sequences of the clusters found in a cluster, 0 sequences for white and all,
@@ -36,15 +36,15 @@ where the arguments are the following:
     \begin{itemize}
       \item 0: no gradient and hence all clusters that have at least 1
         sequence are colored in the desired color.
-      \item 1: a linear grandient from white corresonding to: no
+      \item 1: a linear gradient from white corresponding to: no
         sequences,
         to the desired color corresponding to all sequences.
-      \item 2: la logarthmic gradient. The logarithmic gradient
+      \item 2: la logarithmic gradient. The logarithmic gradient
         nevertheless sets 0 sequences to all white.
     \end{itemize}
   \item \emph{cluster-index-colors} allows you to select the different
     colors for the different clusters. As already mentioned this might
-    result in unpredictable behavoir selecting more than 1 cluster and
+    result in unpredictable behavior selecting more than 1 cluster and
     more than one color. This argument has to be formed as a set of
     strings like \emph{'2,\#FF0000'} \emph{'4,\#00FF00'} where the
     first number is the number of the cluster to select from the
@@ -79,9 +79,9 @@ are shown, in a logarithmic gradient from white ( no sequences ) to
 black, \#000000, corresponding to clusters holding all sequences.
 
 Also this tool was at one point designed to permit different clusters
-to be highlighted as different colors, subsequent modificatons of this
+to be highlighted as different colors, subsequent modifications of this
 tool destroyed this functionality and selecting multiple clusters with
-different colors might result in unexpected behavoir, as such you may
+different colors might result in unexpected behavior, as such you may
 limit yourself to highlight only one cluster per dodendogram and use
 different imaging software to overlay results.
 
@@ -104,7 +104,7 @@ explained above only sequences from the 5th cluster of the
 \emph{cluster-set} binary file. We than use \emph{nw\_display} from
 the Newick tools \cite{newick_tools} to generate the final diagram.
 
-A diagram generated with a logaritmic gradient might look like the one
+A diagram generated with a logarithmic gradient might look like the one
 shown figure \ref{fig-treemapset}
 
 \begin{figure}

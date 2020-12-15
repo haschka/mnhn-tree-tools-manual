@@ -21,7 +21,7 @@ The \emph{kmer2pca} tool has the following arguments.
     \ref{sec-fasta2kmer}
   \item \emph{projections} The file where projections onto the
     principal components will be written to. This file contains
-    tabulator seperated values, each line corresponds to the line in
+    tabulator separated values, each line corresponds to the line in
     k-mer frequencies input file.
   \item \emph{eigenvalues} The file where the eigenvalues of
     covariance matrix are written to. The eigenvalues are sorted from
@@ -45,11 +45,11 @@ The \emph{kmer2pca} tool has the following arguments.
 fasta2kmer test.kmer test.pca test.ev 7 8
 \end{lstlisting}
 In this example we calculate the projections into a seven dimensional
-suspace spun by the 7 principal components with the highest
+subspace spun by the 7 principal components with the highest
 variance. The projections of the k-mers stored in test.kmer onto these
 7 principal components are written to test.pca. The eigenvalues of the
 covariance matrix built from the kmers in test.kmer are written to the
-test.ev file. 8 threads are used to perfromed to built the covariance
+test.ev file. 8 threads are used to performed to built the covariance
 matrix.
 
 \subsection{algorithm}
@@ -58,8 +58,8 @@ The PCA is straight forward implemented in its most common form. We
 have the vectors of k-mer frequencies for each sequence. We hence can
 call each k-mer a features, of which we have the number of sequences
 samples. In order perform a PCA we first need to obtain a feature
-covariance matrix, and hence calculate the covariance entre k-mers for
-the dataset of sequences that have. We first calculate the mean of all
+covariance matrix, and hence calculate the covariance between each pair of
+k-mers in the dataset. We first calculate the mean of all
 k-mers, let us call a single k-mer $X$:
 \begin{equation}
   \bar{X} = \frac{1}{n}\sum_{i=1}^{n}X_i,
@@ -86,11 +86,11 @@ From this covariance matrix solve the eigenvalue equation:
   Cv_i=\lambda_i v_i \label{eqn-eigen}
 \end{equation}
 where $v_i$ are the eigenvectors or in the sense of PCA the principal
-components while $\lambda_i$ are the associated eigenvales.
+components while $\lambda_i$ are the associated eigenvalues.
 
 Once the principal components are obtained they are sorted together
 with the associated eigenvalues. In order to calculate the projections
-a sample $S$ and hence a sequence in its k-mer represenation has to be
+a sample $S$ and hence a sequence in its k-mer representation has to be
 projected onto the principal components $v_i$ with the highest
 eigenvalues. The number of projections is given by the
 \emph{dimension} parameter of the tool. The projections $p_i$ are the simple
@@ -99,18 +99,18 @@ eigenvector $v_i$,
 \begin{equation}
   p_i = <v_i|S>.
 \end{equation}
-As such we have effectivly removed the dimensionalty to the number of
+As such we have effectively diminished the dimensionalty to the number of
 \emph{dimensions} as selected.
 
 The algorithm is implemented by parallization on different
-levels. The algorithm spents for a great number of samples most of its
+levels. The algorithm spends for a great number of samples most of its
 time calculating the matrix elements of equation
 (\ref{eqn-covariance}). The matrix itself rests in most cases
 of a small rank, the number of individual k-mers. As such solving the
 eigenvalues and eigenvectors ( principal components ) in equation
 (\ref{eqn-eigen}) is especially for k-mers of small $k$ fast. Hence we
 focused our efforts on the calculation of the matrix elements in
-(\ref{eqn-covariance}). As the coviariance matrix is symmetric we
+(\ref{eqn-covariance}). As the covariance matrix is symmetric we
 calculate only the half of the elements transposing them into the
 other half. Each row of the matrix is calculated in its own thread,
 allowing us to calculate several rows on several cores in

@@ -37,11 +37,11 @@ Where the different tools perform as disguised by their name:
     described in section \ref{sec-kmer2pca}.
   \item \emph{cluster\_dbscan\_kmerL1}: Clustering of sequences in a
     k-mer representation applying the $L_1$-norm also known as the
-    Manhatten distance between the k-mer frequecy vectors that
+    Manhattan distance between the k-mer frequency vectors that
     represent each sequence as a distance between them.
   \item \emph{cluster\_dbscan\_kmerL2}: Clustering of sequences in a
     k-mer representation applying the $L_2$-norm also known as the
-    Manhatten distance between the k-mer frequecy vectors that
+    Manhattan distance between the k-mer frequency vectors that
     represent each sequence as a distance between them.
   \item \emph{cluster\_dbscan\_SW}: Clustering of sequences using the
     Smith-Waterman distance measure.
@@ -53,7 +53,7 @@ The tools have the following arguments:
 \begin{enumerate}
   \item \emph{fasta}: A FASTA file containing the sequences to be
     clustered. In the case of Smith-Waterman clustering the FASTA file
-    has to containe nucleic sequences as clustering of proteic
+    has to container nucleic sequences as clustering of proteic
     sequences under a Smith-Waterman distance is not implemented. In
     case the Smith-Waterman distance is evaluated on GPUs the maximum
     sequence length is limited to 300 nucleotide bases.
@@ -61,10 +61,10 @@ The tools have the following arguments:
     as calculated by the \emph{kmer2pca} tool. 
   \item \emph{dimensions}: The number of dimensions, principal
     components found in the file.
-  \item \emph{epsilon}: The epsilon neighbourhood radius as used by the DBSCAN
+  \item \emph{epsilon}: The epsilon neighborhood radius as used by the DBSCAN
     \cite{dbscan} algorithm.
   \item \emph{minPoints}: The minimum number of sequences to be found
-    within an epsilon neighbourhood in order to form or expand a
+    within an epsilon neighborhood in order to form or expand a
     cluster according to the DBSCAN algorithm.
   \item \emph{outfiles-fasta-prefix}: The DBSCAN based tools all
     generate a FASTA file per cluster found. With this argument you
@@ -90,9 +90,9 @@ dataset that exceed a certain density:
 \begin{equation}
   \rho = \frac{n}{V(\epsilon)} \label{eqn-density}
 \end{equation}
-where V is the Volume within an epsilon neighborhood defind by the
+where V is the Volume within an epsilon neighborhood defined by the
 radius $\epsilon$. $n$ corresponds to the number of sequences within
-the afforementioned volume, and is defined using the \emph{minPoints}
+the aforementioned volume, and is defined using the \emph{minPoints}
 parameter. The formula for the volume depends on the metric used, but
 is hypercubic for $L_1$ measurements, and hyperspheric for $L_2$
 measurements. Sequences scattered in sequence space with a density
@@ -100,7 +100,7 @@ below $\rho$ are found to be outliers and will not be taken into
 account and are hence not to be found in the resulting clusters. 
 
 The different distance measures in the \emph{region expand method} as
-described in the original paper use various means of optimisation and
+described in the original paper use various means of optimization and
 parallization. In the case of PCA, kmerL1, kmerL2 distance methods up to eight
 distances between sequences are calculated in parallel making use of
 the AVX SIMD instructions. In the case of the Smith Waterman distance
@@ -109,7 +109,7 @@ multiple distances in parallel on OpenCL devices such as GPUs.
 
 The Smith Waterman algorithm calculates the Smith Waterman matrix and
 defines the maximum value to be found within the matrix to be the
-distance between two sequences. No implimentation a Smith Waterman
+distance between two sequences. No implementation a Smith Waterman
 algorithm using protein sequences has been implemented. The algorithm
 builds the matrix using the recurrence relation:
 \begin{eqnarray}
@@ -158,7 +158,7 @@ number for each clusters.
 \subsection{Implementation}
 
 The DBSCAN algorithm for all variants is implemented in \emph{dbscan.c}
-The Interface for the Smith-Waterman variants is imlemented in
+The Interface for the Smith-Waterman variants is implemented in
 \emph{cluster\_dbscan\_SW.c}.
 The Interface for k-mer distance based $L_1$ and $L_2$ variants is
 implemented in \emph{cluster\_dbscan\_kmer.c}.

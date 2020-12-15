@@ -9,8 +9,8 @@ Ground trouth sets can for instance be generated using the
 \emph{split\_set\_from\_annotation} (c.f. section
 \ref{sec-ssannotation}) or \emph{split\_set\_from\_swarm}
 (c.f. \ref{sec-ssannotation})
-tool if a comparison agains such tools is the reason for using this
-utility. \emph{Tree\_purness} calculates three indicies:
+tool if a comparison against such tools is the reason for using this
+utility. \emph{Tree\_purness} calculates three indices:
 \begin{enumerate}
 \item Pureness Index,
 \item Cluster correspondance,
@@ -33,7 +33,7 @@ with the following arguments:
 \item \emph{fasta} A FASTA dataset of sequences that a tree has been
   built from, and that a ground truth clustering set is known from.
 \item \emph{ground-truth} A binary \emph{split-set} file that contains
-  the clustering of the groud truth.
+  the clustering of the ground truth.
 \item \emph{split-sets} The resulting split sets from an adaptive
   clustering run, that represent a full tree.
 \item \emph{output} Output is a text file containing each layer in a
@@ -52,22 +52,22 @@ The program defines the three indices:
     \label{eqn-pureness}
   \end{equation}
   where $l$ represents the layer of a tree, $n_{l,\mathrm{inp}}$ the
-  number of inpure clusters, hence the clusters that are mixture of
-  two partitions from the inital truth dataset to compare to,
+  number of impure clusters, hence the clusters that are mixture of
+  two partitions from the initial truth dataset to compare to,
   $n_{\mathrm{target}}$ the number of partitions in the original
   truth dataset, $f_{l,i,k}^{<50\%}$ the number of elements
-  belonging to partition $k$ of the truth dataset in the inpure
+  belonging to partition $k$ of the truth dataset in the impure
   cluster indexed by $i$ in layer $l$ if this number represents less
   then 50\% of the elements in the inpure cluster otherwise
   $f_{l,i,k}^{<50\%}$ represents the total number of elements in the
-  inpure cluster minus the elements in this cluster that belong to
-  the partion of the truth dataset that is indexed by $k$. Finally
-  $C_{l,i}$ represents the total number of elements in the inpure
+  impure cluster minus the elements in this cluster that belong to
+  the partition of the truth dataset that is indexed by $k$. Finally
+  $C_{l,i}$ represents the total number of elements in the impure
   cluster in layer $l$ indexed by $i$.
 \item \emph{Cluster correspondance}: It is straight forward to
   reason that pureness as define above is not enough, as a
   partitioning with enough small clusters would yield highly pure
-  clusters but not a meaningfull partioning, as such we further
+  clusters but not a meaningful partitioning, as such we further
   define:
   \begin{equation}
     S_{l}=\frac{|n_{l}-n_{\mathrm{target}}|}{n_{\mathrm{target}}}, \label{eqn-c-corr}
@@ -81,17 +81,17 @@ The program defines the three indices:
   \begin{equation}
     I_{l}=\frac{n_{l,\mathrm{inp}}}{n_{l}}. \label{eqn-impure-pure}
   \end{equation}
-  $I_{l}$ represents the number of inpure clusters, hence those who
+  $I_{l}$ represents the number of impure clusters, hence those who
   contain mixtures of partitions from the truth partitioning over
   the number of clusters that are pure.
 \end{enumerate}
-An exmaple of clustering and the calculation of the three indices is shown
+An example of clustering and the calculation of the three indices is shown
 in figure \ref{fig-pureness}.
 \begin{figure}
   \begin{center}
   \includegraphics[scale=0.9]{pureness.pdf}
-  \caption{A groud truth and a computed clustering. The figure shows how
-    the cluster indices: Pureness, Cluster Correspondance and
+  \caption{A ground truth and a computed clustering. The figure shows how
+    the cluster indices: Pureness, Cluster Correspondence and
     Impureness over Pureness are calculated.}
   \label{fig-pureness}
   \end{center}
@@ -126,8 +126,8 @@ A resulting \emph{/tmp/pureness} then might look like this:
 0.301733        0.415385        0.315789
 0.327885        0.569231        0.267857
 \end{lstlisting}
-with three tablator seperated values per line, where the first value
-is the Pureness, the scond the Cluster Correspondance and the third
+with three tabulator separated values per line, where the first value
+is the Pureness, the second the Cluster Correspondence and the third
 the Impureness over Pureness value. Using \emph{gnuplot} for instance
 one can create a three value diagram in order to judge if a level of
 the tree yields the accuracy requested to the ground truth. Such an

@@ -16,7 +16,7 @@ silhouette [fasta1] [fasta2] [n-threads]
 \end{lstlisting}
 with the following arguments:
 \begin{enumerate}
-\item \emph{fasta1}: A FASTA file containg a set of sequences.
+\item \emph{fasta1}: A FASTA file containing a set of sequences.
 \item \emph{fasta2}: An other FASTA file containing a set of sequences.
 \item \emph{n-threads}: The number of threads that this computation might use.
 \end{enumerate}
@@ -26,7 +26,7 @@ with the following arguments:
 The tool calculates the silhouette index comparing distances of
 internal to each dataset, with distances external to each dataset.
 
-The silhoutette index is calculated using the following formula:
+The silhouette index is calculated using the following formula:
 
 \begin{equation}
   S=\frac{1}{n_1}\sum_{i=1}^{n_{1}} s_{i},
@@ -51,7 +51,7 @@ second fasta file. We write as such:
 \begin{equation}
   b_i = \frac{1}{n_b}\sum_{j=1}^{n_B}d_{\mathrm{SW}}(A_i,B_j).
 \end{equation}
-with $d_{SW}(X,Y)$ being the smith watherman distance between two
+with $d_{SW}(X,Y)$ being the Smith Waterman distance between two
 sequences $X$ and $Y$ as defined in section
 \ref{sec-dbscan-algorithm}. $n_A$ and $n_B$ are the number of
 sequences found in the first $A$, and second $B$ FASTA file. 

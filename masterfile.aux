@@ -66,7 +66,7 @@
 \@writefile{lol}{\contentsline {lstlisting}{\numberline {3.9}Generating a Newick tree with \emph  {split\_sets\_to\_newick}}{17}\protected@file@percent }
 \newlabel{lst-newick-tools-tutorial}{{3.10}{17}}
 \@writefile{lol}{\contentsline {lstlisting}{\numberline {3.10}Using the Newick tools \cite  {newick_tools} to plot a dendogram}{17}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {3.3}{\ignorespaces A Newick tree with the cluster labels visible, each cluster is labeld by L$X$C$Y$N$Z$ where $X$ is the layer number, $Y$ the cluster number and $Z$ the number of sequences in that cluster. The substitutions/site are automatically added by the Newick tools and have in our case no significance.}}{18}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {3.3}{\ignorespaces A Newick tree with the cluster labels visible, each cluster is labeled by L$X$C$Y$N$Z$ where $X$ is the layer number, $Y$ the cluster number and $Z$ the number of sequences in that cluster. The substitutions/site are automatically added by the Newick tools and have in our case no significance.}}{18}\protected@file@percent }
 \newlabel{fig-nwtree-tutorial}{{3.3}{18}}
 \citation{gnuplot}
 \newlabel{lst-sstofasta-tutorial}{{3.11}{19}}
@@ -91,7 +91,7 @@
 \@writefile{lol}{\contentsline {lstlisting}{\numberline {3.18}Drawing the dendogram highlighting the sequence in \emph  {target.fasta}}{22}\protected@file@percent }
 \@writefile{toc}{\contentsline {section}{\numberline {3.5}Comparison to Ground Truth}{22}\protected@file@percent }
 \newlabel{lst-ssannotation-annotation-tutorial}{{3.19}{22}}
-\@writefile{lol}{\contentsline {lstlisting}{\numberline {3.19}Generationg an annotation file for \emph  {split\_set\_from\_annotation}}{22}\protected@file@percent }
+\@writefile{lol}{\contentsline {lstlisting}{\numberline {3.19}Generating an annotation file for \emph  {split\_set\_from\_annotation}}{22}\protected@file@percent }
 \@writefile{lof}{\contentsline {figure}{\numberline {3.5}{\ignorespaces The tree, tracing down a target sequence highlighted by the \emph  {tree\_map\_for\_sequence} tool.}}{23}\protected@file@percent }
 \newlabel{fig-treemapseq-tutorial}{{3.5}{23}}
 \citation{newick_tools}
@@ -104,7 +104,7 @@
 \@writefile{lol}{\contentsline {lstlisting}{\numberline {3.21}Creating a Newick tools \cite  {newick_tools} map file for a \emph  {split-set}}{24}\protected@file@percent }
 \newlabel{lst-nwtools-highlight-ss-tutorial}{{3.22}{24}}
 \@writefile{lol}{\contentsline {lstlisting}{\numberline {3.22}Using the Newick tools \cite  {newick_tools} to visualize partitions}{24}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {3.6}{\ignorespaces Tracing down clusters using the \emph  {tree\_map\_for\_split\_set} tool. On the left we have the first partition while on the right the second partition is shown. Using the logarthmic representation we can also easily track down the core clusters \emph  {L0C0} and \emph  {L0C12} that have generated these two families, forming these two substrees (lower on the right, upper on the left).}}{25}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {3.6}{\ignorespaces Tracing down clusters using the \emph  {tree\_map\_for\_split\_set} tool. On the left we have the first partition while on the right the second partition is shown. Using the logarithmic representation we can also easily track down the core clusters \emph  {L0C0} and \emph  {L0C12} that have generated these two families, forming these two subtrees (lower on the right, upper on the left).}}{25}\protected@file@percent }
 \newlabel{fig-treemapss-tutorial}{{3.6}{25}}
 \newlabel{lst-pureness-tutorial}{{3.23}{26}}
 \@writefile{lol}{\contentsline {lstlisting}{\numberline {3.23}Evaluating a tree against ground truth with the \emph  {tree\_pureness} Tool}{26}\protected@file@percent }
@@ -248,10 +248,10 @@
 \@writefile{toc}{\contentsline {subsection}{\numberline {4.12.2}Usage}{47}\protected@file@percent }
 \newlabel{lst-adaptive-call}{{4.26}{47}}
 \@writefile{lol}{\contentsline {lstlisting}{\numberline {4.26}Calling the \emph  {adaptive\_clustering\_X} tools}{47}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.12.3}Algorithm}{49}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {4.2}{\ignorespaces \textbf  {Building trees from sequences:} Highlights our algorithm, and its three parameter input $\epsilon $ the inital epsilon neighborhood radius for the DBSCAN algorith, $\Delta \epsilon $ the increase of $\epsilon $ in every step and minpts the minimal number of points to be found in an epsilon neigbourhood to either extend or create a cluster. $n$ in the diagram represents the number of clusters of the current DBSCAN run, $n(\mathrm  {prev})$ the number of clusters of the previous run. $t$ at the treebuilding side, the stepnumber and hence, how often DBSCAN has been run. The algorithm works itself from right to the left throught the tree, detecting first using a small $\epsilon $ very dense clusters of nucleic sequences and hence, clusters that are highly conserved in sequence. In increasing DBSCANS $\epsilon $ from layer to layer, the clusters contain less and less conserved sequences, and basically fusion from layer to layer, until DBSCAN just detects a single cluster, the root of the tree.}}{50}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.12.3}Algorithm}{48}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.12.4}Example}{49}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {4.2}{\ignorespaces \textbf  {Building trees from sequences:} Highlights our algorithm, and its three parameter input $\epsilon $ the initial epsilon neighborhood radius for the DBSCAN algorithm, $\Delta \epsilon $ the increase of $\epsilon $ in every step and minpts the minimal number of points to be found in an epsilon neighborhood to either extend or create a cluster. $n$ in the diagram represents the number of clusters of the current DBSCAN run, $n(\mathrm  {prev})$ the number of clusters of the previous run. $t$ at the treebuilding side, the stepnumber and hence, how often DBSCAN has been run. The algorithm works itself from right to the left through the tree, detecting first using a small $\epsilon $ very dense clusters of nucleic sequences and hence, clusters that are highly conserved in sequence. In increasing DBSCANS $\epsilon $ from layer to layer, the clusters contain less and less conserved sequences, and basically fusion from layer to layer, until DBSCAN just detects a single cluster, the root of the tree.}}{50}\protected@file@percent }
 \newlabel{fig-adaptive-dbscan}{{4.2}{50}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.12.4}Example}{51}\protected@file@percent }
 \newlabel{lst-adaptivecluster-example}{{4.27}{51}}
 \@writefile{lol}{\contentsline {lstlisting}{\numberline {4.27}Calling the \emph  {adaptive\_clustering\_PCA} tools}{51}\protected@file@percent }
 \@writefile{toc}{\contentsline {subsection}{\numberline {4.12.5}Implemenation}{51}\protected@file@percent }
@@ -282,7 +282,7 @@
 \@writefile{toc}{\contentsline {subsection}{\numberline {4.15.3}Example}{55}\protected@file@percent }
 \newlabel{lst-ssnewick-example}{{4.33}{55}}
 \@writefile{lol}{\contentsline {lstlisting}{\numberline {4.33}Example of the \emph  {split\_sets\_to\_newick} tool}{55}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.15.4}Implemenatation}{55}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.15.4}Implementation}{55}\protected@file@percent }
 \@writefile{toc}{\contentsline {section}{\numberline {4.16}split\_set\_to\_matrix\_X}{55}\protected@file@percent }
 \@writefile{toc}{\contentsline {subsection}{\numberline {4.16.1}Usage}{56}\protected@file@percent }
 \newlabel{lst-ssmatrix-call}{{4.34}{56}}
@@ -371,7 +371,7 @@
 \@writefile{toc}{\contentsline {subsection}{\numberline {4.23.1}Usage}{65}\protected@file@percent }
 \newlabel{lst-treemapset-call}{{4.55}{65}}
 \@writefile{lol}{\contentsline {lstlisting}{\numberline {4.55}Calling the \emph  {tree\_map\_for\_split\_set} tool}{65}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {4.3}{\ignorespaces An example of a tree that outlines with a red line the location of a certan sequence. A tree generated using the tools in order as outlined in listing \ref  {lst-treemapseq-example-extended}. The substitutions/site scale automatically generated by the Newick utilities \cite  {newick_tools} can be ignored.}}{66}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {4.3}{\ignorespaces An example of a tree that outlines with a red line the location of a certain sequence. A tree generated using the tools in order as outlined in listing \ref  {lst-treemapseq-example-extended}. The substitutions/site scale automatically generated by the Newick utilities \cite  {newick_tools} can be ignored.}}{66}\protected@file@percent }
 \newlabel{fig-treemapseq}{{4.3}{66}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {4.23.2}Example}{67}\protected@file@percent }
 \newlabel{lst-treemapset-example}{{4.56}{67}}
@@ -430,7 +430,7 @@
 \@writefile{toc}{\contentsline {subsection}{\numberline {4.27.2}Usage}{77}\protected@file@percent }
 \newlabel{lst-pca2densityfile-call}{{4.66}{77}}
 \@writefile{lol}{\contentsline {lstlisting}{\numberline {4.66}Calling the \emph  {pca2densityfile} tool}{77}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {4.7}{\ignorespaces The sequence density in a two dimensional PCA subspace of a k-mer represenation. The image was upscaled and color inverted for printing using the Gnu Image Manipulation Program (GIMP) \cite  {gimp}.}}{78}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {4.7}{\ignorespaces The sequence density in a two dimensional PCA subspace of a k-mer representation. The image was upscaled and color inverted for printing using the Gnu Image Manipulation Program (GIMP) \cite  {gimp}.}}{78}\protected@file@percent }
 \newlabel{fig-pca2densitymap}{{4.7}{78}}
 \citation{blender}
 \citation{blender}
@@ -507,7 +507,7 @@
 \newlabel{eqn-pureness}{{4.23}{89}}
 \newlabel{eqn-c-corr}{{4.24}{89}}
 \newlabel{eqn-impure-pure}{{4.25}{89}}
-\@writefile{lof}{\contentsline {figure}{\numberline {4.9}{\ignorespaces A groud truth and a computed clustering. The figure shows how the cluster indices: Pureness, Cluster Correspondance and Impureness over Pureness are calculated.}}{90}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {4.9}{\ignorespaces A ground truth and a computed clustering. The figure shows how the cluster indices: Pureness, Cluster Correspondence and Impureness over Pureness are calculated.}}{90}\protected@file@percent }
 \newlabel{fig-pureness}{{4.9}{90}}
 \bibdata{bib}
 \@writefile{toc}{\contentsline {subsection}{\numberline {4.32.4}Example}{91}\protected@file@percent }
