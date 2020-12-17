@@ -4,7 +4,7 @@
 
 In this chapter we will provide you with the details that allow you to
 install \emph{MNHN-Tree-Tools}. The primary distribution method is in the
-form of source code on github: \newline
+form of source code on available from: \newline
 \url{https://gitlab.in2p3.fr/mnhn-tools/mnhn-tree-tools} \newline
 
 For a full installation a machine with a UNIX or UNIX-like system
@@ -18,19 +18,20 @@ compile the full suite of tools you need a toolchain, consisting of:
 \item \emph{BLAS/LAPACK} An implementation of the BLAS/LAPACK
   libraries.
 \item \emph{OpenCL:} A working implementation of the OpenCL
-  language. The suite was tested to compile with the
-  \emph{nvidia-opencl-toolkit} or the \emph{intel-opencl-sdk}.
+  language. The suite was tested with the
+  \emph{nvidia-opencl-toolkit} and the \emph{intel-opencl-sdk}.
 \item \emph{SDL2:} An implementation of the SDL2 library.
 \item \emph{MPI:} An implementation of the Message Passing Interface
   (MPI). The suite was tested with \emph{OpenMPI}.
 \item \emph{PNG:} An implementation of the PNG graphics library.
 \end{itemize}
 You may make sure that you not only have the binary versions of the
-supporting libraries installed but also the header files, otherwise
-the software will not be able to compile. As such you may need to
-install the developer \emph{-dev} versions of the libraries. In the
-next step you may clone the \emph{MNHN-Tree-Tools} source code from github.
-You can do this by issuing the following command in your UNIX
+supporting libraries installed but also the header files as the
+software will fail to compile otherwise. As such, depending on your
+software distribution and operating system, you may need to
+install the developer \emph{-dev} versions of the libraries listed
+above. The \emph{MNHN-Tree-Tools} source code is shared using git and
+may be obtained by issuing the following command in your UNIX
 terminal:
 \lstset{language=bash,
   caption={Cloning the source from github.},
@@ -39,15 +40,16 @@ terminal:
 git clone https://gitlab.in2p3.fr/mnhn-tools/mnhn-tree-tools.git
 cd mnhn-tree-tools
 \end{lstlisting}
-Cloned and entered the mnhn-tree-tools
+As you have cloned and entered the mnhn-tree-tools
 directory you need to edit the head of the
-make file to suite your UNIX systems needs, select the correct compiler
-flags and linking commands to the libraries. You may consult the
-forums and documentation of your System/Distribution to find the
-correct values. In general \emph{CC} is the command of your compiler,
-\emph{MPICC} the MPI wrapper of your compiler. \emph{CFLAGS} the
-options that you want to pass to your compiler. The other options are
-the flags required by the linker to find the appropriate libraries.
+make file to suite your UNIX systems needs, and set the correct compiler
+flags and link commands. We refer to the documentation and formus
+accompanying your operating system to find the
+correct values. In general \emph{CC} reflects the command of your compiler,
+\emph{MPICC} the MPI wrapper of your compiler and \emph{CFLAGS} the
+options that you want to pass to your compiler. The other options
+correspond to the flags required by the linker to find the appropriate
+libraries.
 \lstset{language=make,
   caption={Head of the Makefile},
   label=lst-make-head}

@@ -12,7 +12,7 @@ hand. While these tools work and have been tested for millions of
 sequences we recommend you that you use a dataset of about 5000 to
 10000 sequences for this tutorial to progress fast and learn how to
 use these tools quickly. If you have no dataset available you can
-generate one with our built in virtual biosphere generator the
+generate one with our built in virtual biosphere generator, the
 \emph{virtual\_evolution} tools shown in section
 \ref{sec-virtual-ev}. To generate such a dataset you might run:
 \lstset{language=bash,
@@ -22,12 +22,12 @@ generate one with our built in virtual biosphere generator the
 \begin{lstlisting}
 virtual_evolution_controlled  15 100 10000 2 -1 50000 5 test.fasta
 \end{lstlisting}
-which should yield a decent dataset to discover \emph{MNHN-tools}.
+which should yield a decent dataset to discover \emph{MNHN-Tree-Tools}.
 
 The tools presented herein are built with FASTA \cite{fasta} files in mind. If
 you have your sequence data available in a different file format you
-may need to convert it beforehand. If you bring your own FASTA file
-for this tutorial please note that the \emph{MNHN-tools} are only able
+may have to convert it beforehand. If you bring your own FASTA file
+for this tutorial please note that the \emph{MNHN-Tree-Tools} are only able
 to treat human readable non single line FASTA files. 
 As such a sequence may not contain more than 1000 characters per line.
 If your file contains lines that are longer then the 1000 character
@@ -45,7 +45,7 @@ If you have datasets in this format you may use the following
 
 sed -n '1~4s/^@/>/p;2~4p' $1 > $2
 \end{lstlisting}
-In such a case it might also be necessary to apply \emph{seqret} from
+In such a case it might again be necessary to apply \emph{seqret} from
 EMBOSS on the FASTA files resulting from this conversion in order to
 ensure appropriate line lengths. 
 
@@ -67,7 +67,7 @@ lengths_from_fasta your.fasta > lengths
 The tool yields all the sequence lengths for the sequences of your
 dataset on separated lines in the \emph{lengths} file. We leave it to
 the reader to analyze with the divers tools available to find out weather
-the legatos do not have a variance that is reasonable in respect to
+the lengths do have a variance that is reasonable in respect to
 the average sequence length. 
 
 \section{Investigating k-mers and Principal Components}
@@ -78,7 +78,7 @@ align sequences in order to calculate their distance or compare them
 is the \emph{k-mer} representation. In the \emph{k-mer}
 representation we compare all possibilities of sequences of certain $k$
 length with a sequence in questions and count how often such a
-sequence appears in our sequence of question. Let us image that $k$ equals
+sequence appears in our sequence of question. Let us imagine that $k$ equals
 four. In such a case we obtain 256 possibilities to form a sequence ( out of
 nucleotides ) or $4^4$ sequences. As we count how often any of these
 sequences occurs in our target sequence, we can represent the target
@@ -88,23 +88,26 @@ counts how often each sequence occurs in the target sequence for the
 In order to perform this transformation we run the
 \emph{fasta2kmer} tool (c.f. section \ref{sec-fasta2kmer}). In our case
 we are not generating 4-mers, but 5-mers for our sequences and thus
-vectors of $5^{4}=1024$ values in length:
+vectors of $4^{5}=1024$ values in length:
 \lstset{language=bash,
   caption={Generating 5-mers with \emph{fasta2kmer}},
   label=lst-fasta2kmer-tutorial}
 \begin{lstlisting}
 fasta2kmer test.fasta 5 2 0 > test.kmer
 \end{lstlisting}
-on a supposedly dual core machine, and hence we are selecting 2 threads. To
+on a supposedly dual core machine, and hence we are selecting 2
+threads. In order to
 choose the right \emph{k-mer} size you may be advised to use a length
-that captures the information in your sequences. Hence the longer your
-sequences are, the higher the $k$ of the sequences shall be. But
-beware every increase in $k$ also generates an increase of $k^4$
-data and therefore we strongly discourage using $k > 7$ if the length of
+that captures all the information in your sequences. Hence the longer your
+sequences are, the higher the $k$ of the sequences shall be. At the
+same time you shall be aware that every increase in $k$ also generates
+an increase of $4^{k}$ data generated and
+therefore we strongly discourage using $k > 7$ if the length of
 your sequences permits such a choice.
-To encode enough information it is suggested
-that you have as much k-mers at hand as your sequence is in
-length. Thus armed with a k-mer length of $k=4$, for instance we shall
+To encode enough information we suggeste
+that you have about as many k-mers at hand as the average number of
+nucleotides contained in a sequence in your dataset.
+Thus armed with a k-mer length of $k=4$, for instance we shall
 be fine for sequences of up to 256 nucleotides.
 Typing
 \lstset{language=bash,
@@ -124,7 +127,8 @@ to your favorite \emph{linear algebra} textbook. To perform
 PCA on the dataset we have the \emph{kmer2pca} tool (c.f. section
 \ref{sec-kmer2pca}) at hand. Applying the tool on our 
 \emph{test.fasta} dataset together with its k-mer representation
-\emph{test.kmer}, we are able to perform a PCA like:
+\emph{test.kmer}, we are able to perform a PCA by issuing the
+following command:
 \lstset{language=bash,
   caption={Performing PCA on the k-mer representation of our sequences},
   label=lst-kmer2pca-tutorial}
@@ -134,7 +138,7 @@ kmer2pca test.kmer test.pca test.ev 7 2
 and are using our supposed dual core machine, calculating the
 projections onto the seven first principal components with the largest
 corresponding eigenvalues. The eigenvalues printed in test.ev allow us
-to get an idea of the information variance that we capture in
+to get an idea of the information that we capture in
 our 7 dimensional PCA subspace. A good measure is to perform the sum
 of all eigenvalues, and then to sum up, in this case the first 7 and
 calculate the percentage of that the sum of the first seven represents
@@ -184,7 +188,7 @@ and directly access the sequences. This tool is highlighted in section
 
 \section{Adaptive Clustering}
 
-One core feature of the \emph{MNHN-Tree-Tools} is an adaptive density
+One core feature of \emph{MNHN-Tree-Tools} is an adaptive density
 based clustering algorithm that can be used to study phylogenetic
 features and the evolution of species by investigating typical
 DNA barcoding targets such as the 16S or 18S ribosomal RNA or
@@ -192,14 +196,14 @@ Cyclooxygenase 1 (COX1) coding regions. Further the tool might be of
 use for all kinds of purposes where similar sequence clusters are to
 be investigated. As such \emph{MNHN-Tree-Tools}
 was successfully applied in the quest to discover families of
-α-satellites, repeated sequences, in the human genome.
+α-satellites, a set of repeated sequences found in the human genome.
 
 Adaptive clustering is implemented in the MNHN tools with different underlying
-sequence distance measures and optimized for different computing
-architectures. As we have already highlighted the PCA tools during the
-tutorial and for the sake of the rapidity of the computation we show
-how we can use the PCA based adaptive clustering method in order to
-investigate our dataset of sequences:
+sequence-distance measures and optimized for different computing
+architectures. As we have already highlighted the aforementioned
+PCA tools during and also for the sake of rapidity we use the PCA
+based adaptive clustering method in order to
+investigate our dataset of sequences further:
 \lstset{language=bash,
   caption={Performing PCA based adaptive clustering},
   label=lst-adaptivecluster-tutorial}
@@ -207,54 +211,62 @@ investigate our dataset of sequences:
 mkdir clusters
 adaptive_clustering_PCA test.fasta 1 0.001 3 clusters/L 2 7 test.pca > cl-out
 \end{lstlisting}
-Here we iteratively use the DBSCAN algorithm \cite{dbscan} from a
+By issuing this command we iteratively use the DBSCAN algorithm
+\cite{dbscan} from a 
 starting value of $\epsilon_{\mathrm{int}} = 1$ and increasing in it
 each step by $\Delta\epsilon = 0.001$. Together with the constant
-\emph{minPoints} of 3 value this forms different density limits. The
-scanning algorithm will find us sequences above these density limits,
+\emph{minPoints} value 3 this forms different density limits:
+\begin{equation}
+  \rho_{\mathrm{clust}} >
+  \rho_{\mathrm{limit}}(\epsilon,\mathrm{minpts}) =
+  \frac{\mathrm{minpts}}{V(\epsilon)}
+\end{equation}
+The scanning algorithm will find us sequences above these density limits,
 and as the density decreases in each step regions that house connected
 sequences above a certain density are growing and will merge, and
-hence, denser regions are found to be in less denser regions. This
+hence, denser regions are found to be in less denser regions. These
 denser regions in less denser regions allow us the interpret
-dependencies, build dendograms and investigate evolution. A simple
+dependencies, build dendograms and investigate the evolutionary
+history of the sequences. A simple
 illustration of the algorithm is shown in figure
 \ref{fig-adaptive-cluster}.
 \begin{figure}
   \includegraphics{densities-space.pdf}
   \caption{The adaptive clustering algorithm finds dense (new)
     clusters in less dense (old) more dispersed clusters. Finally the
-    \emph{MNHN-Tree-Tools} collection allows us to build a tree from like
-    the one on the right, from a sequence space as the one on the
+    \emph{MNHN-Tree-Tools} collection allows us to build a tree like
+    the one on the right, from a sequence space as shown on the
     left.}
   \label{fig-adaptive-cluster}
 \end{figure}
 For a more detailed overview the reader is referred to section
-\ref{sec-adaptive-clust}. 
-The command in listing \ref{lst-adaptivecluster-tutorial} yields us
-with an output file \emph{cl-out} and a bunch of binary
+\ref{sec-adaptive-clust}. The command in listing
+\ref{lst-adaptivecluster-tutorial} yields us 
+with an output file \emph{cl-out} and a number of of binary
 \emph{split-sets} in the
 \emph{cluster} folder. A binary \emph{split-set} is a file that holds
 a partitioning of our dataset. As we have run an adaptive clustering
 run, several different partitions for different densities have been
-returned by the algorithm. These will later on be the layers of our
-tree. Hence we named them L, and the tool returned us files that hold
-the name like \emph{L0000}, \emph{L0001} etc. indicating the layer of
-the tree. From the most outer leaf node \emph{L0000} to the most inner
+returned by the algorithm. These will later form the layers of our
+tree. As such we named them L. The tool returned us files named like
+\emph{L0000}, \emph{L0001} etc. indicating the layer of
+the tree from the most outer leaf node \emph{L0000} to the most inner
 root \emph{LNNNN} with \emph{NNNN} being the highest number
 available. For each of the clusterings we also know, thanks to the
 data that we stored in \emph{cl-out} which binary \emph{split-set}
-belongs to which $\epsilon$ and hence to which density limit.
+belongs to which $\epsilon$ and hence, to which density limit.
 
 \section{Tree Building, Tree Visualization and Tree Investigation}
 
-Having our \emph{split-sets} from an adaptive clustering run at hand,
-and having looked already at the \emph{cl-out} file we already have
-guessed what is next. In the \emph{cl-out} file different there is at
-the lower and a list of connections between different clusters at
-different layers. The next step is to build a tree, or a dendogram
-representing the density structure of our dataset and hence obtain the
-left side of figure \ref{fig-adaptive-cluster}. \emph{MNHN-Tree-Tools} comes
-with a tool to infer a Newick tree \cite{newick} from the clusters
+With our \emph{split-sets} from an adaptive clustering run at hand,
+and having looked already at the \emph{cl-out} file one might already
+guess the next step in this tutorial. The \emph{cl-out} file contains
+a list of connections between the different clusters in the different
+layers. The next step is to build a tree, or dendogram,
+representing the density structure of our dataset and hence, obtain the
+right side of figure
+\ref{fig-adaptive-cluster}. \emph{MNHN-Tree-Tools} provides
+a tool to infer a Newick tree \cite{newick} from the clusters
 obtained during an adaptive clustering run. Here we run the tool
 \emph{split\_sets\_to\_newick} outlined in section \ref{sec-ssnewick}
 using the results from our adaptive clustering run:
@@ -264,9 +276,9 @@ using the results from our adaptive clustering run:
 \begin{lstlisting}
 split_sets_to_newick 0 0 clusters/L* > tree.dnd
 \end{lstlisting}
-and obtain a Newick tree in the file \emph{tree.dnd}. You can use a
-tool of choice to plot the Newick tree, but herein we show how to do
-it with the Newick tools by the University of Geneva
+and obtain a Newick tree in the file \emph{tree.dnd}. You can use any
+tool of your choice to plot the Newick tree. Herein we prefer the
+Newick tools by the University of Geneva
 \cite{newick_tools}.
 \lstset{language=bash,
   caption={Using the Newick tools \cite{newick_tools} to plot a
@@ -275,11 +287,11 @@ it with the Newick tools by the University of Geneva
 \begin{lstlisting}
 nw_display -s -b 'opacity:0' -w 600 tree.dnd > tree.svg
 \end{lstlisting}
-where the options are \emph{-s} in order to generate a \emph{scalable
+where the options are: \emph{-s} in order to generate a \emph{scalable
 vector graphics} (SVG) file, \emph{-b 'opacity:0'} is here to hide the
 number indicating the distance between the clusters. \emph{-w} the
 size, with of the image. The reader shall be referred to the Newick
-tools manual for all the vast possibilities of options. If you use
+tools manual for all the vast possibilities this tool provides. If you use
 your own dataset you might have to adjust the width so that all the
 labels are visible. In general you should be presented with a tree
 like the one shown in figure \ref{fig-nwtree-tutorial}.
@@ -294,8 +306,9 @@ like the one shown in figure \ref{fig-nwtree-tutorial}.
     \label{fig-nwtree-tutorial}
   \end{center}
 \end{figure}
-Here in the image which is the tree of clusters obtained from our
-virtual biosphere, generated by the command in listing
+The image shown in figure \ref{fig-nwtree-tutorial} outlines the tree
+of clusters obtained from our
+virtual biosphere dataset that we generated issuing the command in listing
 \ref{lst-virtev-tutorial} where two partitions with a distance of at
 least 5 nucleotides was requested. One of these underwent 10000 single
 nucleotide mutations and the other 20000, and hence both partitions
@@ -303,21 +316,21 @@ diffused, as seen in the figures of the PCA \ref{fig-pca-tutorial} and as it
 can be seen in the figures of the tree \ref{fig-nwtree-tutorial}.
 
 Looking at figure \ref{fig-nwtree-tutorial}
-Lets say we would like to identify the clusters \emph{L5C0} containing
-3216 sequences and \emph{L5C6} containing 3784 clusters. Both at the
+imagine we would like to identify the clusters \emph{L5C0} containing
+3216 sequences and \emph{L5C6} containing 3784 clusters. Both are at the
 forefront of two large subtrees. In order to access the sequences in
 these clusters we have to convert layer 5 to FASTA files. Layer 5
 exists by \emph{MNHN-Tree-Tools} convention in a binary \emph{split-set}
 file named with the suffix number \emph{0005}, hence in our case, as
 demanded by the command in listing \ref{lst-adaptivecluster-tutorial}
-named in the folder \emph{clusters} named \emph{L0005}. In order to
+in the folder \emph{clusters} named \emph{L0005}. In order to
 convert the sequences of layer 5 to \emph{FASTA} files we use the
 tool \emph{split\_set\_to\_fasta} as described in section
 \ref{sec-sstofasta}. We note here to the reader, that his personal tree, even
 using our commands might slightly differ due to different random
 number generator mechanisms on different systems, and that he might
 have to adapt cluster and layer numbers to the tree he has obtained. 
-The \emph{split\_set\_to\_fasta} tool is called here like:
+The \emph{split\_set\_to\_fasta} tool is called as follows:
 \lstset{language=bash,
   caption={Converting a binary \emph{split-set} to \emph{FASTA} sequences},
   label=lst-sstofasta-tutorial}
@@ -325,12 +338,12 @@ The \emph{split\_set\_to\_fasta} tool is called here like:
 mkdir fasta-layer-5
 split_set_to_fasta test.fasta clusters/L0005 fasta-layer-5/C
 \end{lstlisting}
-and hence we obtain the FASTA files for layer 5. The files for our
+As such we have obtained the FASTA files for layer 5. The files for our
 clusters \emph{L5C0} and \emph{L5C6} are respectively stored in the
 files \emph{fasta-layer-5/C-000} and \emph{fasta-layer-5/C-006} in
 FASTA format. Using the same mechanism we can identify any sequence
 anywhere in the tree. Now one could open these files for instance with
-\emph{SEAVIEW} and throw all kind of statistical tools, or our
+\emph{SEAVIEW} and apply all kinds of statistical tools, or our
 \emph{consens} tool highlighted in section \ref{sec-consens} on this
 files.
 
@@ -372,9 +385,11 @@ which generates in our case the figure \ref{fig-pca-proj}.
 \end{figure}
 Note that as the algorithm is written in order to infer the tree
 structure and consensus ( center of gravity ) of clusters / sequence
-families, sometimes the clusters might appear small when projected. In
-this case you can search for a more optimal cluster size bearing the
-$\epsilon$ value around the layer in question. You can find this value
+families and as such the clusters might appear small being projected
+in a PCA subspace. In
+such a case you can search for a more optimal cluster size changing the
+$\epsilon$ value around the layer in question. The $\epsilon$ values
+for each layer are found
 in the output file, in our case \emph{cl-out} as requested in listing
 \ref{lst-adaptivecluster-tutorial}. You may find lines like the
 following:
@@ -387,8 +402,9 @@ Layer 5 has 7 clusters
   Coverage at layer 5: 0.704100
   Epsilon at layer 5: 1.100000
 \end{lstlisting}
-As the algorithm is tree preserving. If you have the feeling that the
-clusters are to small you can run a single \emph{DBSCAN} run
+as the algorithm is tree preserving. If you find that the
+clusters are to small for your application you can run a single
+\emph{DBSCAN} run
 \cite{dbscan} with the tools \emph{cluster\_dbscan\_X} tools
 shown in section \ref{sec-dbscan-cluster},
 choosing an epsilon value just below the one of the following layer,
@@ -404,13 +420,13 @@ Layer 6 has 4 clusters
 \end{lstlisting}
 This way more defuse sequences might be taken into account, just
 before the clusters merge due to the $\epsilon=1.18$ density
-criteria. You can hence if you like oversample the tree.
+criteria. You can therefore oversample the tree.
 
 Let us further investigate the structure of the tree, and let us say
-we would like to see how a single sequence flows through the tree,
+we would like to see how a single sequence flows through,
 and where it appears in the tree. In order to achieve such a task we
-have the \emph{three\_map\_for\_sequence} tool shown in section
-\ref{sec-treemapseq}. Lets say we are interested to find the following
+have the \emph{three\_map\_for\_sequence} tool as outlined in section
+\ref{sec-treemapseq}. Imagine that we are interested in finding the following
 sequence that resides in our initial dataset in our tree:
 \lstset{language={},
   caption={A sequence of interest},
@@ -468,9 +484,9 @@ artificial clustering or binary \emph{split-set} in order to further
 investigate the two known partitions with the \emph{MNHN-Tree-Tools}. In
 order to generate such a \emph{split-set} we will use the
 \emph{split\_set\_from\_annotation} tool outlined in section
-\ref{sec-ssannotation}. In order to do this with first have to
-generate the annotation file. On the \emph{bash} \cite{bash} shell on
-a Unix/Linux system you can do this in the following way:
+\ref{sec-ssannotation}. In order to do this we first have to
+generate the annotation file. Using the \emph{bash} \cite{bash} shell on
+a Unix/Linux system we can perfrom this in the following way:
 \lstset{language=bash,
   caption={Generating an annotation file for
     \emph{split\_set\_from\_annotation}},
@@ -506,12 +522,13 @@ split_set_from_annotation test.fasta gt-annotation unique-gt-annotation \
 which generates us the ground truth binary \emph{split-set} indicating
 the two clusters.
 
-A question that one might ask, knowing that the first 5000 sequences
+Knowing that the first 5000 sequences
 form a partition and the second 5000 sequences form an other partition
-as created by using our \emph{virtual\_evolution} tools: Where are we
-going to find these sequences in the tree. In order to investigate
-such a matter we can use the \emph{tree\_map\_for\_split\_set} tool
-as shown in section \ref{sec-treemapss}:
+as created by using our \emph{virtual\_evolution} tools we would like
+to know where these partitions are to be found in the tree.
+In order to investigate this matter we use the
+\emph{tree\_map\_for\_split\_set} tool
+as highlighted in section \ref{sec-treemapss}:
 \lstset{language=bash,
   caption={Creating a Newick tools \cite{newick_tools} map file for a
     \emph{split-set}},
@@ -523,7 +540,7 @@ tree_map_for_split_set ground-truth test.fasta 1 2 '2,#000000' \
   clusters/L* > tree-two.map
 \end{lstlisting}
 which yields us the \emph{tree-maps} that we can use with the Newick
-tools \cite{newick_tools} to highlight different the different
+tools \cite{newick_tools} to outline the different
 datasets in the trees. In order to do this we generate two SVG files
 for each tree executing:
 \lstset{language=bash,
@@ -549,6 +566,8 @@ The two resulting trees are shown in figure \ref{fig-treemapss-tutorial}.
     \label{fig-treemapss-tutorial}
   \end{center}
 \end{figure}
+
+
 Finally we can quantize if our tree correctly maps the two
 clusters by applying our \emph{Pureness} calculation. This allows us
 to check weather we obtain the same clusters as the ground truth and
@@ -559,7 +578,7 @@ a tree against ground truth the reader is referred to section
 execture the \emph{tree\_pureness} tool:
 \lstset{language=bash,
   caption={Evaluating a tree against ground truth with the
-    \emph{tree\_pureness} Tool},
+    \emph{tree\_pureness} tool},
   label=lst-pureness-tutorial}
 \begin{lstlisting}
 tree_pureness test.fasta ground-truth clusters/L* > pureness
@@ -594,8 +613,11 @@ column shows that at this moment the tree, nevertheless is not only
 composed of two Datasets, but contains more clusters in this Layer. A
 quick look at the Tree in figure \ref{fig-nwtree-tutorial} shows that
 these clusters have very few elements and have formed due to the
-fluctuation of diffusion. They would have been filtered away by a more
-aggressive \emph{minPoints} value in the adaptive clustering run.
+fluctuations caused by random diffusion. They would have been filtered
+away by a more aggressive \emph{minPoints} value in the adaptive
+clustering run.
+
+
 
 
 
