@@ -2,9 +2,9 @@
 
 \subsection{General}
 
-This tool allows you to reverse certain sequences in a FASTA file. A
-mask text file has to be provided to indicated which sequences shall
-be reversed. This tool only changes read direction of the of the
+This tool allows you to reverse selected sequences in a FASTA file. A
+mask text file has to be provided to indicate which sequences shall
+be reversed. This tool only changes the read direction of the of the
 selected sequences. A more elaborate tool is the
 \emph{reverse\_complement\_with\_mask} tool found in section \ref{sec-revcomp}.
 
@@ -20,16 +20,16 @@ reverse_with_mask [fasta] [mask] > [fasta-out]
 with the following arguments:
 \begin{enumerate}
   \item \emph{fasta} A FASTA file to reverse sequences in.
-  \item \emph{mask} A mask file to tell the utility which sequences to
+  \item \emph{mask} A mask file to indicate the utility which sequences to
     reverse. The file has to contain a line with a number for each
-    sequence. If the number matches 1 this sequence is reversed in the
-    output file.
-  \item \emph{fasta-out} The FASTA dataset containing all sequences
+    sequence. If the number matches 1 the sequence corresponding to
+    this line in the mask file is reversed in the FASTA output file.
+  \item \emph{fasta-out} The FASTA dataset of all sequences
     with those reversed where the mask matches.
 \end{enumerate}
 
 \subsection{Example}
-We imagine the following FASTA file with three sequences:
+Imagine the following FASTA file with three sequences:
 \lstset{language={},
   caption={Example of the \emph{reverse\_with\_mask} tool - FASTA file},
   label=lst-revmask-fasta}
@@ -41,8 +41,8 @@ ACCT
 > sequence_3
 GGAT
 \end{lstlisting}
-We would lot to reverse the second sequence and hence write a mask file
-like the following:
+As we would like to reverse the second sequence we create the
+following mask file:
 \lstset{language={},
   caption={Example of the \emph{reverse\_with\_mask} tool - Mask file},
   label=lst-revmask-mask}
@@ -51,14 +51,14 @@ like the following:
 1
 0
 \end{lstlisting}
-Calling the tool like:
+Calling the tool as outlined below:
 \lstset{language=bash,
   caption={Example of the \emph{reverse\_with\_mask} tool},
   label=lst-revmask-example}
 \begin{lstlisting}
 reverse_with_mask test.fasta test.mask > out.fasta
 \end{lstlisting}
-will produce the output:
+will produce the following FASTA file output:
 \lstset{language={},
   caption={Example of the \emph{reverse\_with\_mask} tool - Output FASTA file},
   label=lst-revmask-fastaout}
@@ -74,3 +74,4 @@ GGAT
 \subsection{implementation}
 The tools interface is implemented in \emph{reverse\_with\_mask.c}.
 The code that reverses the sequences resides in \emph{dataset.c}.
+

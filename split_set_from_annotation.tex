@@ -16,17 +16,17 @@ split_set_from_annotation [fasta-ds] [annotation] [unique-annotations] \
 \end{lstlisting}
 with the following arguments:
 \begin{enumerate}
-\item \emph{fasta-ds} A FASTA file that shall be clustered according to the
+\item \emph{fasta-ds} A FASTA file that shall be partitioned according to the
   annotations in the \emph{annotation} file.
 \item \emph{annotation} The annotation file, containing a line for each
   sequence in the \emph{fasta-ds} file. An annotation can be any chosen word.
   If a line contains only a dash '-', the sequence will not be part of any of
   the possible clusters.
 \item \emph{unique-annotations} The database of possible annotations.
-  For each cluster the word used to annotate sequences in the \emph{annotation}
-  file an entry containing the word corresponding to this cluster is made.
-  A sole entry. The entries shall be made in cluster order that you wish
-  to have in the resulting binary \emph{split-set} file.
+  For each cluster a single word used to annotate sequences in the
+  \emph{annotation} file corresponding to this cluster is made.
+  The entries shall be made in the order that you wish
+  to have your clusters in the resulting binary \emph{split-set} file.
 \item \emph{split-set} The resulting binary clustering or \emph{split-set}
   file.
 \end{enumerate}
@@ -49,12 +49,12 @@ AAACGT
 >sequence6
 AAAGCT
 \end{lstlisting}
-and we want to cluster this file into two clusters, one containing
+and we want to partition this file into two clusters, one containing
 sequence 1, and sequence 2 while the second cluster is composed of
 sequence 4, 5 and 6. We would like to omit sequence 3 from the
-clustering. As such we create an annotations file like:
+partitions. As such we create the following annotations file:
 \lstset{language={},
-  caption={Example of an \emph{annotation} file for the \emph{split\_set\_from\_annotation} tool},
+  caption={Example of an \emph{annotation} file for the \emph{split\_set\_from\_annotation} tool.},
   label=lst-ssannotation-example-annotations}
 \begin{lstlisting}
 one
@@ -69,7 +69,7 @@ all sequences of the second cluster with two. We omit the third
 sequence by annotating it with a dash '-'. Further we need to write a
 file containing all the words that we used to annotate our clusters.
 \lstset{language={},
-  caption={Example of an \emph{unique-annotations} file for the \emph{split\_set\_from\_annotation} tool},
+  caption={Example of an \emph{unique-annotations} file for the \emph{split\_set\_from\_annotation} tool.},
   label=lst-ssannotation-example-unique-annotations}
 \begin{lstlisting}
 one

@@ -2,8 +2,8 @@
 
 \subsection{General}
 
-Using this tool one can generate a binary \emph{split-set} file describing
-a clustering in the sense of \emph{MNHN-Tree-Tools} from a clustering generated
+This tool generates a binary \emph{split-set} file describing
+clusters in \emph{MNHN-Tree-Tools} format from a clustering obtained
 with Swarm version 3 \cite{swarm2}.
 
 \subsection{Usage}
@@ -17,9 +17,9 @@ split_set_from_swarm [fasta] [swarm] [split-set]
 with the following arguments:
 \begin{enumerate}
   \item \emph{fasta} The original FASTA file that has been clustered with Swarm
-    version 3 \cite{swarm2}. This is not the downsampled file that you
-    use to create the swarm clustering but the original
-    dataset. (c.f. example).
+    version 3 \cite{swarm2}. This is not the downsampled file that is
+    used to perform clustering with the swarm tool, but the original dataset.
+    (c.f. example).
   \item \emph{swarm} The clustering performed by swarm. Swarms output
     file
   \item \emph{split-set} The binary file containing the clustering to
@@ -27,14 +27,14 @@ with the following arguments:
 \end{enumerate}
 
 \subsection{Example}
-We imagine we would like to generate a clustering with swarm of
-several sequences. Hence we first have to eliminate duplicates and
-name the duplicity in a way that swarm understands it. The
-\emph{sequence\_mulitplicity} tool outlined in section
-\ref{sec-seqmult}, is perfect for this task. Hence we prepare the
+We imagine we would like to generate a clustering of
+several sequences with swarm. Hence, we first have to eliminate duplicates
+and format sequence multiplicity in a way that swarm understands it. The
+\emph{sequence\_mulitplicity} tool, outlined in section
+\ref{sec-seqmult}, is perfect for this task. As such we prepare the
 swarm input file as follows:
 \lstset{language=bash,
-  caption={Generating an input for swarm using the \emph{sequence\_multiplicity} tool},
+  caption={Generating a valable input file for swarm using the \emph{sequence\_multiplicity} tool},
   label=lst-sequencemultiplicity-example-swarm}
 \begin{lstlisting}
 sequence_multiplicity test.fasta > swarm-in.fasta
@@ -47,8 +47,7 @@ We than run the swarm tool to cluster our dataset.
 swarm swarm-in.fasta > swarm-output
 \end{lstlisting}
 and can finally built a \emph{split-set} cluster file that uses the interal
-structures of the tools that are presented in this
-manual.
+structures of MNHN-Tree-Tools.
 \lstset{language=bash,
   caption={Example of the \emph{split\_set\_from\_swarm} tool},
   label=lst-ssswarm-example}
@@ -61,4 +60,4 @@ annotations find the correct sequences in the original dataset and
 built a binary \emph{split-set} file accordingly.
 
 \subsection{implementation}
-The tool is implemented in \emph{split\_set\_from\_swarm.c}.
+This tool is implemented in \emph{split\_set\_from\_swarm.c}.

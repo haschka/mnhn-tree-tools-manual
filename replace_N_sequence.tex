@@ -20,16 +20,16 @@ where the arguments are as follows:
 \begin{enumerate}
 \item \emph{fasta} A FASTA file holding sequences
 \item \emph{sequence-index} An index to select a sequence from the
-\item \emph{fasta} file. In this tool the first sequence is selected by
-  1.
+  \emph{fasta} file. In this tool the first sequence is selected by
+  1 (and not 0).
 \item \emph{fasta-out} All possible permutations by replacing the N
   letters in the sequence.
 \end{enumerate}
 
 \subsection{Example}
-Let us imagine a fasta file like the following:
+Let us imagine a FASTA file like the following:
 \lstset{language={},
-  caption={Fasta example for the \emph{replace\_N\_sequence} tool},
+  caption={A FASTA example for the \emph{replace\_N\_sequence} tool.},
   label=lst-repnseq-fastaex}
 \begin{lstlisting}
 >sequence1
@@ -39,17 +39,17 @@ ANNT
 >sequence3
 ANTG
 \end{lstlisting}
-We would like to get all sequences possible by replacing the N letters
-in the second sequence, hence we call the utility like:
+We would like to obtain all sequences possible by replacing the N letters
+in the second sequence and hence, we call the utility:
 \lstset{language=bash,
   caption={Fasta example for the \emph{find\_satellite} tool},
   label=lst-repnseq-example}
 \begin{lstlisting}
 replace_N_sequence test.fasta 2 /tmp/out.fasta
 \end{lstlisting}
-And get a \emph{/tmp/out.fasta} that looks like:
+which yields a \emph{/tmp/out.fasta} file with the following contents:
 \lstset{language={},
-  caption={Fasta example for the \emph{replace\_N\_sequence} tool},
+  caption={A FASTA output example for the \emph{replace\_N\_sequence} tool.},
   label=lst-repnseq-fastaout}
 \begin{lstlisting}
 >sequence_0
@@ -86,7 +86,7 @@ AGTT
 ATTT
 \end{lstlisting}
 
-\subsection{implementation}
+\subsection{Implementation}
 The tools interface is implemented in
 \emph{replace\_N\_sequence.c}. The mechanism is implemented in
 \emph{kmers.c}.

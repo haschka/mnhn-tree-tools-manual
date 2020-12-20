@@ -2,17 +2,18 @@
 
 The tools \emph{virtual\_evolution} and
 \emph{virtual\_evolution\_controlled} allow you to simulate simple
-evolutionary processes and generate nucleic sequences ressembling to
-these evolutionary processes. Your simulated biosphere will then
+evolutionary processes and create nucleic sequences ressembling to
+evolutionary processes. Your simulated biosphere shall hence
 reside in a FASTA file.
 
 \subsection{Usage}
 
-The evolution simulating in MNHN-Tree-Tools comes in two versions in
-rougher \emph{virtual\_evolution} tool and in a more controlled, later
+The evolution simulation as implemented
+in MNHN-Tree-Tools comes in two versions: A rather crude
+\emph{virtual\_evolution} tool and in a more controlled, later
 added \emph{virtual\_evolution\_controlled} tool.
 
-The tools can be called like:
+The tools can be called as outlined in the following:
 
 The \emph{tree\_map\_for\_sequence} tool can be used:
 \lstset{language=bash,
@@ -24,44 +25,46 @@ virtual_evolution [seed] [seq-length] [n-sequences] [n-partitions] \
 virtual_evolution_controlled [seed] [seq-length] [n-sequences] [n-partitions] \
   [max-time] [rate] [n-mutations-to-previous-amplification-template] [fasta]
 \end{lstlisting}
-with the following parameters:
+with the parameters:
 \begin{enumerate}
-  \item \emph{seed} The seed, to pseudorandom number generators used,
-    that permits you to generate the same set of sequences
+  \item \emph{seed} The seed the pseudorandom number generator uses.
+    This value allows us to generate the same set of sequences
     in subsequent calls of this tool.
   \item \emph{seq-length} The length of the sequences to be generated.
   \item \emph{n-sequences} How many sequences in total have to be
     generated.
   \item \emph{n-partitions} How many families/clusters shall be
-    generated, i.e. how many amplification events should happen.
-  \item \emph{max-time} If the evolution should accur at random times
-    beteween amplifications and be limited to \emph{max-time}. -1 here
-    chooses a constant evolution cycle, befor a new cluster expansion
-    happens, otherwise a random number of evolution cycles may occur,
-    between 0 and \emph{max-time}.
-  \item \emph{rate} substitution of bases in the nucleic sequence per
-    evolution cycle.
+    generated, or in other words, how many amplification events should happen.
+  \item \emph{max-time} This value selects if the evolution should
+    occur at random times beteween amplifications and be limited to
+    \emph{max-time} or weather, if -1 is chosen 
+    a constant evolution cycle befor a new cluster expansion
+    happens is prefered. If the value selected is not -1  a random
+    number, between 0 and \emph{max-time} of evolution cycles may occur.
+  \item \emph{rate} The substitution rate of nucleotide
+    bases in the nucleic sequences per evolution cycle.
   \item \emph{n-mutations-to-amplication-template} Adds the here
-    chosen number of mutation to the amplification template before
-    cluster expansion. In this case the nucleotide bases are only $X$
-    times as chosen here replaced. This actual number of mutations
-    might be lower as the replaced base might be the same as the
-    nucleotide that was already in place.
+    chosen number of mutation to the amplification template before a
+    new cluster expansion occurs.
+    In this case the nucleotide bases are only replaced $X$
+    times, as chosen here. The actual number of mutations
+    might be lower as the replaced bases (at a probablity of 1/4th per
+    base) might be of the same nucleotide as the one that was in place.
   \item \emph{n-mutations-to-previous-amplification-template} Adds
     this number of real mutations to the previous amplification
     template, before generating a new family.
-  \item \emph{fasta} A FASTA file where to output the sequences in
-    question.
+  \item \emph{fasta} A FASTA file where to write the sequences
+    generated to.
 \end{enumerate}
 
-\subsection{algorithm}
-The algorithms between the two simulation process are different as
-such we begin to present the,
+\subsection{Algorithm}
+As the algorithms for the two simulation processes are different we
+outline both in the following:
 \begin{itemize}
   \item \emph{virtual\_evolution} process. The evolutionary process
     herein is a basic expansion and diffusion process. The way this
     simulator works is that it generates a template sequence of a
-    given size. It then copy this sequence until it fills a whole
+    given size. It then copies this template sequence until it fills a whole
     family as defined by the \emph{n-sequences} and
     \emph{n-partitions} arguments. A family or partition as such
     contains
@@ -75,13 +78,13 @@ such we begin to present the,
       M = ptr \label{eqn-mutation-rate}
     \end{equation}
     mutations on the previous partitions generated. Where $t$ is a random
-    time, and hence number of cycles number, which is chosen between 0
+    time, and hence the number of cycles number, which is chosen between 0
     and $t_{\mathrm{max}}$ which is defined by the \emph{max-time}
     parameter. $r$ is the mutation rate as defined by the \emph{rate}
     parameter. $p$ is the number of partitions already generated.
     Once $M$ mutation were perfomed on the current state of the
-    dataset. A sequence is randomly chosen from the previous
-    sequencies and will be the template for the next expension of $N$
+    dataset a sequence randomly chosen from the previous
+    sequencies will be the template for the next expension of $N$
     sequences. The algorithm is continued until all partitions are
     created, perfoming a last mutation run on the entire dataset as
     determined by equation \ref{eqn-mutation-rate}.
@@ -93,11 +96,13 @@ such we begin to present the,
     template for each family is chosen from the previous template to
     create a partition or family, and not randomly chosen from the
     existing sequences. Further the number of mutations is enforced
-    not be just exchanges of nucleotides that might actually not lead
-    to mutations but to actual mutations. Hence you perfectly know how
-    far the templates between different families are away, and with a
-    fixed rate of mutations can perfectly estimate the diffusion of
-    each partition. Hence we have a perfectly controlled
+    not be just exchanges of nucleotides, that might actually not lead
+    to mutations as there is a 1 in 4 chance that a nucleotide gets
+    replaced by itself, but to be actual mutations. Hence, one
+    perfectly knows to what extend the templates between families
+    differ. Together with a
+    fixed mutation rate one can further perfectly estimate the diffusion of
+    each partition. As such we have created a perfectly controlled
     distance-diffusion mechanism. The process is outlined in figure
     \ref{fig-virtual-evolution-controlled}.
 \end{itemize}
@@ -123,21 +128,21 @@ such we begin to present the,
   \end{center}
 \end{figure}
 
-\subsection{example}
+\subsection{Example}
 \lstset{language=bash,
-  caption={Example of using the \emph{virtual\_evolution} tools},
+  caption={An example of how to use the \emph{virtual\_evolution} tools.},
   label=lst-virtev-example}
 \begin{lstlisting}
 virtual_evolution_controlled 42 100 10000 10 -1 1000 4 biosphere.fasta
 \end{lstlisting}
-Here the evolutionary process generates 10000 sequences of 100
+In this example the evolutionary process generates 10000 sequences of 100
 nucleotides, in 10 partitions of 1000 sequences and a mutation rate
-$r=1000$. The time $t=1$, or number of cycles is fixed to one though
-that the diffusion stays constant during the process. The template
+$r=1000$. The time $t=1$, or number of cycles is fixed to one in order
+for the diffusion to stay constant during the process. The template
 undergoes 4 mutations before creating each new family. The resulting
 sequences are stored to \emph{biosphere.fasta}.
 
-\subsection{implementation}
+\subsection{Implementation}
 \emph{virtual\_evolution} and \emph{virtual\_evolution\_controlled}
 are implemented in \emph{virtual\_evolution.c} and
 \emph{virtual\_evolution\_controlled.c} respectivly. 

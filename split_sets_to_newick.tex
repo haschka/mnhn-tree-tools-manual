@@ -7,7 +7,7 @@ an adaptive clustering run as outlined in section
 
 \subsection{Usage}
 
-One can use the tool like:
+The tool can be used as outlined in the following:
 
 \lstset{language=bash,
   caption={Calling the \emph{split\_sets\_to\_newick} tool},
@@ -16,36 +16,38 @@ One can use the tool like:
 split_sets_to_newick [filter] [lengths-from-output] [dimensions] \
   [outfile] [minPoints] [file1 ... filen] > [newick]
 \end{lstlisting}
-with arguments as follows:
+with the arguments:
 \begin{enumerate}
-  \item \emph{filter} One may use 0, for no filter, an other number for the
-    minimum cluster size to occur in the resulting tree. Filtering
-    like this works but changes the labels on the tree. For correct
-    labels we suggest the user to filter with the
-    \emph{filter\_split\_sets\_by\_min} tool, as shown in section
-    \ref{sec-filter-split}, prior using this tool and
-    apply no filter. This parameter is kept for convenience.
-  \item \emph{lengths-from-output} Use distances between nodes of the
-    Newick tree using parameters found in the output file of an
-    adaptive clustering run with a tool shown in section
-    \ref{sec-adaptive-clust}. If you do not choose to use lengths
-    proportional to density differences choose 0 here, choose 1 if
-    your run uses an $L_1$ based distance calculation, and 2 if your
+\item \emph{filter} One may use 0, for no filter or any other number
+  to define the
+    minimum cluster size to occur in the resulting tree. Filtering the
+    tree in this way changes the labels on the tree. In order to retain correct
+    labels we suggest to use the
+    \emph{filter\_split\_sets\_by\_min} tool, shown in section
+    \ref{sec-filter-split}, prior using this tool and to
+    apply no filter at this step. This parameter is kept for convenience.
+  \item \emph{lengths-from-output} Allows us to define
+    distances between nodes of the
+    Newick tree utilizing the parameters found in the output file of an
+    adaptive clustering run performed with one of the tools shown in section
+    \ref{sec-adaptive-clust}. If you do not choose to tree lengths
+    proportional to density differences between layers choose 0 here,
+    1 if your run uses an $L_1$ based distance calculation and 2 if your
     run uses an $L_2$ based distance calculation. 1 uses a hypercube
     with a sidelength of $2\epsilon$ to calculated the volume, 2 uses
     a hypersphere with radius $\epsilon$.
   \item \emph{dimensions} As the lengths between the nodes correspond
-    to density differences we need the dimensions to calculate the
-    volume from the different $\epsilon$ radiuses found in the
+    to density differences we need the dimensions in order to be able
+    to calculate the volume using the different $\epsilon$ radiuses found in the
     \emph{outfile} file. As a basic guidance choose the number of
-    projections onto principal components that you have used if this
-    run was performed with PCA data. Otherwise choose 1 or a value to
+    projections onto principal components that you have retained in
+    case this run was performed with PCA data. Otherwise choose 1 or a value to
     your convenience.
   \item \emph{outfile} The \emph{output} file from an adaptive
-    clustering run generate from one of the tools outlined in section
+    clustering run generated from one of the tools outlined in section
     \ref{sec-filter-split}.
   \item \emph{minPoints} The \emph{minPoints} argument used during the
-    adaptive clustering run, in order to correctly calculate the
+    adaptive clustering run which is needed in order to correctly calculate the
     correct density differences.
   \item \emph{file1$\ldots$filen} All the \emph{split-set} files
     to use to built this tree from. In order to select them in general
@@ -65,17 +67,18 @@ The formulas used for the volume are:
 \begin{equation}
   V = (2\epsilon)^d,
 \end{equation}
-for the hypercube $L_1$ distance case, and
+for the hypercubic $L_1$ distance case, and
 \begin{equation}
   V = \epsilon^{d}\frac{\pi^{d/2}}{\Gamma(d/2+1)}
 \end{equation}
 for the hyperspherical case. Here $d$ is the number of dimensions
-and $\Gamma$ is the $\Gamma$ function.
+and $\Gamma$ is the $\Gamma$-function.
 
 The algorithm builds the Newick file using a recursive function traversing
 the nodes. Connections between nodes in different layers are made
-if from a denser layer a cluster is contained at least at 80\% in a
-cluster of a less dense layer. 
+if from a layer corresponding to denser clusters
+a cluster is contained at least at 80\% in a layer corresponding to
+more diffuse clusters. 
 
 \subsection{Example}
 
@@ -85,15 +88,15 @@ cluster of a less dense layer.
 \begin{lstlisting}
   split_sets_to_newick 0 2 7 outfile 4 clusters/out-* > tree.dnd
 \end{lstlisting}
-Here we generate a Newick tree which we store in the \emph{tree.dnd}
-whose lengths are density difference based, from an adaptive
+Here we generate a Newick tree that we store in the \emph{tree.dnd} file.
+The lengths of the tree are density difference based, from an adaptive
 clustering run whose output has been stored in \emph{outfile} and
 whose \emph{split-sets} have been stored to \emph{clusters/out-X}
 files. A \emph{minPoints} argument of 4 was used during the adaptive
 clustering run, which was PCA based and operated on a seven
-dimensional subspace spun by the principal components. 
+dimensional subspace. 
 
 \subsection{Implementation}
 The interface for Newick tree generation is implemented in
-\emph{split\_sets\_to\_newick.c}, algorithms for tree generation are
-found in \emph{cluster\_io.c}.
+\emph{split\_sets\_to\_newick.c}. The algorithms that allow us to
+generate a tree are found in \emph{cluster\_io.c}.

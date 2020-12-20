@@ -7,7 +7,7 @@ The \emph{cluster\_dbscan\_PCA}, \emph{cluster\_dbscan\_kmerL1},
 \emph{cluster\_dbscan\_SW\_GPU} implement clustering of a dataset of
 sequences using the DBSCAN \cite{dbscan} algorithm. The different
 variants implement DBSCAN clustering using different sequence-sequence
-distances and platforms. 
+distances and computational platforms. 
 
 \subsection{Usage}
 
@@ -36,13 +36,13 @@ Where the different tools perform as disguised by their name:
     subspace such as the one obtained using the \emph{kmer2pca} tool
     described in section \ref{sec-kmer2pca}.
   \item \emph{cluster\_dbscan\_kmerL1}: Clustering of sequences in a
-    k-mer representation applying the $L_1$-norm also known as the
-    Manhattan distance between the k-mer frequency vectors that
-    represent each sequence as a distance between them.
+    k-mer representation using the $L_1$-norm, also known as the
+    Manhattan distance, to calculate the distance between k-mer
+    frequency vectors representing sequences. 
   \item \emph{cluster\_dbscan\_kmerL2}: Clustering of sequences in a
-    k-mer representation applying the $L_2$-norm also known as the
-    Manhattan distance between the k-mer frequency vectors that
-    represent each sequence as a distance between them.
+    k-mer representation applying the $L_2$-norm, also known as the
+    Euclidean distance, to calculate the distance between k-mer
+    frequency vectors representing sequences.
   \item \emph{cluster\_dbscan\_SW}: Clustering of sequences using the
     Smith-Waterman distance measure.
   \item \emph{cluster\_dbscan\_SW\_GPU}: Clustering of sequences using
@@ -53,10 +53,10 @@ The tools have the following arguments:
 \begin{enumerate}
   \item \emph{fasta}: A FASTA file containing the sequences to be
     clustered. In the case of Smith-Waterman clustering the FASTA file
-    has to container nucleic sequences as clustering of proteic
+    has to consist of nucleic sequences as clustering of amino acid
     sequences under a Smith-Waterman distance is not implemented. In
     case the Smith-Waterman distance is evaluated on GPUs the maximum
-    sequence length is limited to 300 nucleotide bases.
+    sequence length is currently limited to 300 nucleotide bases.
   \item \emph{pcaproj}: The projections onto the principal components
     as calculated by the \emph{kmer2pca} tool. 
   \item \emph{dimensions}: The number of dimensions, principal
@@ -74,18 +74,18 @@ The tools have the following arguments:
     end for each different cluster.
   \item \emph{outfiles-values-prefix}: If this parameter is added to
     the PCA version of the DBSCAN implementation the clusters are not
-    only stored as individual fasta files but also as files containing
+    only stored as individual FASTA files but also as files containing
     the projections onto the principal components for the clustering
-    in question. This for instance allows one to draw the different
-    clusters into visual representations of the PCA projections.
+    in question. This allows for visual representations of the PCA projections.
 \end{enumerate}
 
 \subsection{Algorithm} \label{sec-dbscan-algorithm}
 
-The utility implements the DBSCAN algorithm straight forward as
+The utility implements the DBSCAN algorithm in a straight forward
+fashion as
 described in its original article \cite{dbscan}. The DBSCAN algorithm
 is perfect in finding \emph{density connected} subsets of a
-dataset. The algorithm as such find all connected ensembles in a
+dataset. The algorithm as such finds all connected ensembles in a
 dataset that exceed a certain density:
 \begin{equation}
   \rho = \frac{n}{V(\epsilon)} \label{eqn-density}
@@ -109,16 +109,17 @@ multiple distances in parallel on OpenCL devices such as GPUs.
 
 The Smith Waterman algorithm calculates the Smith Waterman matrix and
 defines the maximum value to be found within the matrix to be the
-distance between two sequences. No implementation a Smith Waterman
-algorithm using protein sequences has been implemented. The algorithm
-builds the matrix using the recurrence relation:
+distance between two sequences. So far no implementation a Smith Waterman
+algorithm using amino acid sequences exists in
+\emph{MNHN-Tree-Tools}. The algorithm builds the matrix using the
+recurrence relation: 
 \begin{eqnarray}
 s_1&=&M(j-1,i-1)+F(A(i),B(j)), \\ \nonumber
 s_2&=&M(j,i-1)-G, \\ \nonumber
 s_3&=&M(j-1,i)-G, \\ \nonumber
 M(i,j)&=&\mathrm{max}(s_1,s_2,s_3).
 \end{eqnarray}
-where $A$ and $B$ are two sequences of the dataset to be compared and
+where $A$ and $B$ are two sequences of the dataset to be compared.
 $A(i)$ is the i-th letter of sequence $A$ and $B(j)$ is the j-th
 letter of sequence $B$.
 \begin{equation}
@@ -150,10 +151,10 @@ not only local registers on the graphics card for the computation.
 This example performs DBSCAN based clustering using $L_2$ distances in
 a 7 dimensional subspace with subspace projections stored in the
 test.pca file. The input values for the DBSCAN run are $\epsilon=0.02$
-and minpoints $n=4$. The resulting clusters will be stored in /tmp/
-with in FASTA format with a file name of outf$N$, and as projections
+and minpoints $n=4$. Each resulting cluster will be stored in /tmp/
+in FASTA format with a file name of outf$N$, and as projections
 onto the principal components outv$N$, where $N$ is an individual
-number for each clusters. 
+number for each cluster. 
 
 \subsection{Implementation}
 

@@ -1,13 +1,16 @@
 \section{print\_connections}
+
 The \emph{print\_connections} tool allows you to highlight
-connections, just as printed in the output file of an adaptive
-clustering run. This means it shows which cluster of a more dense
-stage of an adaptive clustering run is embedded into a cluster of less
-dense stage of an adaptive clustering run. A connection is formed if
-80\% of the sequences of a cluster of a higher density is found in a
-cluster with a lower density. 
+connections in the same way as they are listed in the output file of an adaptive
+clustering run. This means it highlights which cluster of a layer with
+a higher sequence density limit obtained from  an adaptive clustering
+run is embedded into a cluster of a layer with a lower squence density
+limit. A connection is formed if 80\% of the sequences of a cluster of
+a higher density is found in a cluster with a lower density limit. 
 
 \subsection{Usage}
+
+The tool can be called issuing the folling command:
 \lstset{language=bash,
   caption={Calling the \emph{print\_connections} tool},
   label=lst-printconnections-call}
@@ -16,7 +19,7 @@ print_connections [lower-layer-split-set] [upper-layer-split-set]
 \end{lstlisting}
 where \emph{lower-layer-split-set} and \emph{upper-layer-split-set}
 are binary clusterings obtained from an adaptive clustering run that
-was performed with the tools highlighted in section \ref{sec-adaptive-clust}. The
+was performed with the tools outlined in section \ref{sec-adaptive-clust}. The
 \emph{upper-layer-split-set} should be a clustering with a higher
 density then the \emph{lower-layer-split-set}. 
 

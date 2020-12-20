@@ -3,10 +3,11 @@
 \subsection{General}
 
 The PCA visual extract tool allows you to visualize a sequence dataset,
-that has been transformed to a k-mer representation on which PCA was performed
-on, and select sequences using a graphical user interface. In order to
-calculate the necessary representations the reader might look at the tools
-\emph{fasta2kmer} and \emph{kmer2pca} highlighted in sections
+that has been transformed to a k-mer representation that has been
+projected onto its principal components. Its core functionality is a
+visual selection mechanism. In order to 
+obtain the necessary sequence representations the reader is referred
+to the \emph{fasta2kmer} and \emph{kmer2pca} tools highlighted in sections
 \ref{sec-fasta2kmer} and \ref{sec-kmer2pca} respectively.
 
 \subsection{Usage}
@@ -36,9 +37,9 @@ with the arguments being:
     will be written to. 
 \end{enumerate}
 Here \emph{first-dim} and \emph{second-dim} allow you to choose an
-arbitrary plane spun by two principal components to select your
-sequences in a visual manner. Once the call to the program was issued
-on the shall and all the arguments are coherent a graphical user
+arbitrary plane, spun by two principal components to select your
+sequences from in a visual manner. Once the call to the program was issued
+on the shell and all the arguments are coherent, a graphical user
 interface as shown in figure \ref{fig-pcavisual} is presented on the
 screen. On the top of figure \ref{fig-pcavisual} you see a
 window in which you can draw a rectangle using your mouse

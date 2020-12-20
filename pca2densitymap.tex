@@ -3,9 +3,10 @@
 \subsection{General}
 
 The \emph{pca2densiymap} tool allows you to visualize the the sequence density
-in a pca file by generating a portable network graphics (PNG)
-image. This basically 
-generates a histogram by laying a rectangular grid across a projection
+in a PCA file, as for instance created using the \emph{fasta2kmer} tool
+outlined in section \ref{sec-fasta2kmer},
+by generating a portable network graphics (PNG) image. This basically 
+produces a histogram by laying a rectangular grid across a projection
 into two/three dimensional subspace, spun by principal components. The
 tool then counts how many sequences are found within a square/cube
 and attributes this value to a pixel/voxel in the final
@@ -16,7 +17,7 @@ one may refer to the \emph{pca2densityfile} tool outlined in section
 
 \subsection{Usage}
 
-The tool can be called like:
+The tool can be run using the following commands:
 \lstset{language=bash,
   caption={Calling the \emph{pca2densitymap} tool},
   label=lst-pca2densitymap-call}
@@ -24,7 +25,7 @@ The tool can be called like:
 pca2densitymap [fasta] [pca] [dimensions] [2D or 3D] \
   [invertal-length] [png-file-or-files]
 \end{lstlisting}
-and has the following arguments:
+with the arguments:
 \begin{enumerate}
   \item \emph{fasta} The original FASTA file that has been transformed
     into a k-mer representation which was projected into a subspace
@@ -35,13 +36,13 @@ and has the following arguments:
     principal components.
   \item \emph{dimensions} An integer describing how many dimensions
     the PCA subspace consists of.
-  \item \emph{2D or 3D} Chose 2 for a 2-dimensional output or 3 for a
+  \item \emph{2D or 3D} One may choose 2 for a 2-dimensional output or 3 for a
     3-dimensional output. 3-dimensional outputs are not fully tested
     though.
   \item \emph{interval-length} The grid spacing for our histogram.
   \item \emph{png-file-or-files} A path for the resulting PNG file. In
     case of a 3D output a whole stack of images with individual
-    numbers for each slice our created.  
+    numbers for each slice will be created.  
 \end{enumerate}
 
 \subsection{Example}
@@ -51,16 +52,19 @@ and has the following arguments:
 \begin{lstlisting}
 pca2densitymap test.fasta test.pca 7 2 0.1 /temp/out.png
 \end{lstlisting}
-Here an image, \emph{out.png} will be generated that contains from
-white ,most sequences per grid tile, to black, no sequences per grid
-tile. As the image is 8 bits per pixel a range from 0 (black) to 255
-(white) is available. Which might cause, due to the rescaling only a
-few white points if the dataset contains very large peaks and
-completely black background. \emph{test.fasta} is the sequence
+In this example an image, \emph{out.png} will be created that contains
+pixels ranging from
+white, representing the highest number of sequences found in a  grid
+tile, to black, with no sequences in the boundaries of a grid
+tile. As the image can only encode 8 bits per pixel only 255 different
+gray levels are available. This might cause, due to the rescaling,
+that only a few white points exist in the image if the dataset
+contains very large peaks. \emph{test.fasta} is the sequence
 dataset, \emph{test.pca} its projection into a 7 dimensional PCA
-subspace. The tool always chooses only to treat either the first two or
+subspace. The tool always chooses to only treat either the first two or
 three dimensions, for the 2D or 3D case respectively.
-We generate a two dimensional output with a grid spacing of
+Further in this example, we ask for a two dimensional output
+with a grid spacing of
 0.1 [k-mer frequencies]. The tool yields some information about
 the image generated:
 \lstset{language={},
@@ -77,7 +81,7 @@ where shift x and y are origin of the image, in general on the upper
 left. n Points x and y are the number of pixels according to the
 spacing chosen that are calculated and stored in the output PNG
 file. The last value is the scalefactor that has been used in order to
-scale the the densities from 0 to 255 or from black to dark. A sample
+scale the densities from 0 to 255. A sample
 of an image generated using this tool is highlighted in figure
 \ref{fig-pca2densitymap}.
 \begin{figure}

@@ -2,7 +2,7 @@
 
 \subsection{General}
 
-The \emph{find\_satellite} is a filtering tool narrowing down a FASTA
+The \emph{find\_satellite} tool is a filtering tool narrowing down a FASTA
 dataset of similar sequences. The filter can filter sequences by
 length, and by Smith Waterman distance to a template sequence. The
 Smith Waterman algorithm is implemented as shown in
@@ -24,7 +24,7 @@ where the arguments are:
     for according to the pattern selected by the following arguments.
   \item \emph{fasta-target} A FASTA file holding the target sequence
     from which the Smith Waterman distance will be calculated.
-  \item \emph{size} The size of the sequence to be searched for with
+  \item \emph{size} The length of the sequence to be searched for with
     the tolerance intervals given be the subsequent arguments.
   \item \emph{size+} How many nucleotides above the size sequences are
     accepted.
@@ -38,6 +38,7 @@ where the arguments are:
     met the filtering criteria above are written to. 
 \end{enumerate}
 
+
 \subsection{Example}
 \lstset{language=bash,
   caption={Example of the \emph{find\_satellite} tool},
@@ -50,6 +51,7 @@ less then a Smith Waterman distance of 20 away from the sequence
 stored in \emph{target.fasta}. Sequences that are between 97 and 105
 nucleotides long are accepted. The resulting sequences are stored to
 \emph{filtered.fasta}
+
 
 \subsection{Implementation}
 The tools interface is implemented in \emph{find\_satellite.c}. The

@@ -3,7 +3,7 @@
 \subsection{General}
 
 The \emph{consens} tool calculates a consens sequence from sequences found in
-a fasta file. Further the \emph{consens} tool gives a detailed information
+a fasta file. Further the \emph{consens} tool provides detailed information
 about the distribution of nucleotide sequences in a datasets.
 The sequences have to be aligned or quasi-aligned before calling the
 \emph{consens} tool. The tool currently only works with nucleotide
@@ -18,7 +18,7 @@ The \emph{consens} tool can be called like:
 \begin{lstlisting}
 consens [fasta]
 \end{lstlisting}
-where the \emph{fasta} argument is a fasta file to perform the
+where the \emph{fasta} argument is a FASTA file to perform the
 \emph{consens} calculation on.
 
 \subsection{Example}
@@ -28,8 +28,8 @@ where the \emph{fasta} argument is a fasta file to perform the
 \begin{lstlisting}
 consens test.fasta
 \end{lstlisting}
-calculates the consens of the sequences found in test fasta and
-provides you with an output like:
+calculates the consens of the sequences found in test.fasta and
+presents an output like the following:
 \lstset{language={},
   caption={Example output of the \emph{consens} tool},
   label=lst-consens-example-output}
@@ -55,7 +55,7 @@ G         15         11        222          2 0.06000 0.04400 0.88800 0.00800
 \end{lstlisting}
 where you are presented in the first column with the consensus
 sequence, from the second to the fifth column with the absolute number
-of the according bases found, and from the sixth to the ninth column
+of the according bases found and from the sixth to the ninth column
 with the percentage of each bases occurring at this position.
 The final line also shows some statistics:
 \lstset{language={},

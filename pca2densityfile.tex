@@ -6,7 +6,7 @@ The \emph{pca2densityfile} functions similar to the
 \emph{pca2densitymap} tool outlined in section
 \ref{sec-pca2densitymap}. It generates a two dimensional histogram
 across a 2 dimensional PCA projection by selection of a grid
-spacing. The tool then outputs the densities for each tile to a text
+spacing. The tool then writes the densities for each tile to a text
 file that can be used for further processing, or external
 visualization tools.
 
@@ -25,7 +25,7 @@ with the arguments:
     representation (i.e. using \emph{fasta2kmer} as shown in section
     \ref{sec-fasta2kmer}) and where such a k-mer representation has been
     projected onto a PCA subspace (i.e. using \emph{kmer2pca} as
-    outlined in section \ref{sec-kmer2pca}.
+    outlined in section \ref{sec-kmer2pca}.)
   \item \emph{pca} The projections onto the principal components.
   \item \emph{dimensions} How many principal components have been
     retained, the dimensionality of the PCA subspace stored in the
@@ -47,7 +47,7 @@ In this example a dataset of sequences \emph{test.fasta} and a
 representation in a 7 dimensional PCA subspace obtained from a k-mer
 representation of the sequences \emph{test.pca} is examined. A
 histogram is generated using a grid spacing (tile size) of 0.1
-[k-mer frequencies]. How many frequencies are found in each tile is
+[k-mer frequencies]. The number of sequences per tile is
 printed to the output file \emph{/tmp/out}.
 \lstset{language={},
   caption={Example output of the \emph{pca2densityfile} tool},
@@ -74,16 +74,18 @@ n points y:     89
 14 0 0
 15 0 0
 \end{lstlisting}
-In the beginning of the output file you can see a shift x and y value
-which tells us about the origin of the file, further it tells you how many
-tiles it has generated according to the \emph{interval-length}
+In the beginning of the output file a shift x and y value
+which tells us about the origin of the file is found. Further the file shows us
+how many tiles were generated according to the \emph{interval-length}
 parameter. This header is followed by the data which is represented as
-three values per line. The x and y coordinate ( of the tile ) i.e. the
-number of tile that you are in, and the number of sequences in this
-square represents the third value. Such a file can then be used with
-3rd party visualization software, such as Blender \cite{blender} in
-order to inspect the density of sequences in three dimensions. Such an
-example image is shown in figure \ref{fig-pca2densityfile}.
+three values per line.
+Following the header the data is represented as follows:
+On each line the x and y coordinate ( of the tile ) i.e. the
+number of tile that you are in, and the number of sequences present in this
+square are shown. Such a file can be used with
+3rd party visualization tools, such as Blender \cite{blender} in
+order to inspect the density of sequences in three dimensions. An
+example is shown in figure \ref{fig-pca2densityfile}.
 \begin{figure}
   \begin{center}
     \includegraphics{pca-density-file.png}
@@ -92,10 +94,10 @@ example image is shown in figure \ref{fig-pca2densityfile}.
     \label{fig-pca2densityfile}
   \end{center}
 \end{figure}
-We also provide a Blender import script for blender 2.80 and 2.90
+We also provide a Blender import script for Blender 2.80 and 2.90
 in the following:
 \lstset{language=python,
-  caption={Python script to import the output of the \emph{pca2densityfile} tool into blender},
+  caption={Python script to import the output of the \emph{pca2densityfile} tool into Blender.},
   label=lst-pca2densityfile-blender}
 \begin{lstlisting}
 import bpy
@@ -154,8 +156,8 @@ rescale = 5.;
 add_map_from_density_file("/tmp/desityfile", "surface-name", 0.1, 0.03/rescale)
 \end{lstlisting}
 where you have to adapt \emph{/tmp/densityfile} to the location of your
-output, \emph{surface-name} to the name that you want to give to your 3D
-surface and \emph{0.1} to the grid spacing that you have chosen and
+output, \emph{surface-name} to the name that you want to attribute to your 3D
+surface, \emph{0.1} to the grid spacing that you have chosen and
 \emph{0.03} to your rescale factor.
 
 \subsection{Implementation}

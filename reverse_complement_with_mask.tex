@@ -2,10 +2,10 @@
 
 \subsection{General}
 
-This tool allows you to reverse complement certain sequences in a FASTA file. A
-mask text file has to be provided to indicated which sequences shall
-be reversed. This tool only changes read direction of the of the
-selected but also correctly complements the nucleotides.
+This tool allows you to reverse complement selected sequences in a FASTA file.
+A mask text file has to be provided to indicate which sequences shall
+be reversed. This tool not only changes read direction of the
+selected sequences but also correctly complements the nucleotides.
 
 \subsection{Usage}
 
@@ -18,13 +18,14 @@ reverse_with_mask [fasta] [mask] > [fasta-out]
 \end{lstlisting}
 with the following arguments:
 \begin{enumerate}
-  \item \emph{fasta} A FASTA file to reverse sequences in.
-  \item \emph{mask} A mask file to tell the utility which sequences to
+  \item \emph{fasta} A FASTA file to reverse complement sequences in.
+  \item \emph{mask} A mask file indicating the utility which sequences to
     reverse complement. The file has to contain a line with a number for each
-    sequence. If the number matches 1 this sequence is reverse complemented
-    in the output file.
+    sequence. If the number matches 1 on line of the mask file, the
+    sequence corresponding to this line is replaced by its reverse
+    complement in the resulting FASTA file.
   \item \emph{fasta-out} The FASTA dataset containing all sequences
-    with those reverse complemented where the mask matches.
+    together with the reverse complemented at location where the mask matched.
 \end{enumerate}
 
 \subsection{Example}
@@ -41,8 +42,8 @@ ACCT
 > sequence_3
 GGAT
 \end{lstlisting}
-We would like to reverse complement the second sequence and thus
-write a mask file like the following:
+As we would like to reverse complement the second sequence, we write
+a mask file with the following contents:
 \lstset{language={},
   caption={Example of the \emph{reverse\_complement\_with\_mask} tool -
     Mask file},
@@ -52,14 +53,14 @@ write a mask file like the following:
 1
 0
 \end{lstlisting}
-Calling the tool like:
+Running the tool by issuing the following command:
 \lstset{language=bash,
   caption={Example of the \emph{reverse\_complement\_with\_mask} tool},
   label=lst-revcomp-example}
 \begin{lstlisting}
 reverse_complement_with_mask test.fasta test.mask > out.fasta
 \end{lstlisting}
-will produce the output:
+produces the following \emph{out.fasta} file:
 \lstset{language={},
   caption={Example of the \emph{reverse\_complement\_with\_mask} tool -
     Output FASTA file},

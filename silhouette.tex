@@ -2,8 +2,9 @@
 
 \subsection{General}
 
-The \emph{silhouette} tool calculates the silhouette index comparing two,
-clusters or datasets stored in two FASTA files.
+The \emph{silhouette} tool calculates the silhouette index comparing two
+clusters or datasets stored in two FASTA files. The \emph{silhouette}
+tool only works with nucleotide sequences.
 
 \subsection{Usage}
 
@@ -23,8 +24,10 @@ with the following arguments:
 
 \subsection{Algorithm}
 
-The tool calculates the silhouette index comparing distances of
-internal to each dataset, with distances external to each dataset.
+The tool calculates the silhouette index comparing the distances
+internal to each dataset (distances between sequences within a FASTA
+file), with the distances external to each dataset (distances between
+sequences between two FASTA files).
 
 The silhouette index is calculated using the following formula:
 
@@ -45,11 +48,11 @@ sequence $A_i$ found in the first FASTA file \emph{fasta1} and hence,
 \begin{equation}
   a_i = \frac{1}{n_a}\sum_{j=1}^{n_A}d_{\mathrm{SW}}(A_i,A_j).
 \end{equation}
-likewise $b_i$ is the external measure for distances to the $i$-th
+Likewise $b_i$ is the external measure for distances to the $i$-th
 sequence $A_i$ in the first FASTA file and sequences $B$ found in the
-second fasta file. We write as such:
+second FASTA file. We write as such:
 \begin{equation}
-  b_i = \frac{1}{n_b}\sum_{j=1}^{n_B}d_{\mathrm{SW}}(A_i,B_j).
+  b_i = \frac{1}{n_b}\sum_{j=1}^{n_B}d_{\mathrm{SW}}(A_i,B_j),
 \end{equation}
 with $d_{SW}(X,Y)$ being the Smith Waterman distance between two
 sequences $X$ and $Y$ as defined in section

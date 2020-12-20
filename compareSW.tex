@@ -3,7 +3,8 @@
 \subsection{General}
 
 The \emph{compareSW} tool calculates the mean distance and standard deviation
-between two datasets under the Smith Waterman distance.
+between two datasets using the Smith Waterman distance. This tool only
+works with nucleotide sequences.
 
 \subsection{Usage}
 
@@ -23,7 +24,7 @@ with the following arguments:
 
 \subsection{Algorithm}
 
-calculates the mean and the standard deviation of the distances
+The tool calculates the mean and the standard deviation of the distances
 between the sequences in the two datasets. If the first dataset has
 $n$ sequences and the second $j$, the number of total distances
 calculated is hence, $N=nj$. The Smith Waterman algorithm is the same
@@ -40,6 +41,6 @@ This example computes the mean distance between the sequences in test1.fasta
 and test2.fasta using 8 cores. 
 
 \subsection{Implementation}
-The functions to calculated the mean and standard deviation are
+The functions to calculate the mean and standard deviation are
 implemented in \emph{comparison.c}. The Interface is implemented in
 \emph{compareSW.c}.

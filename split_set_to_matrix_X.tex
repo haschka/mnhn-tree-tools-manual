@@ -1,14 +1,14 @@
 \section{split\_set\_to\_matrix\_X}
 
-This are two tools to generate a matrix view of a tree that can then be
-plotted with the \emph{gnuplot} \cite{gnuplot} program. The matrix
-view basically, highlights each sequence as a point on a line,
+This are two tools to create a matrix view of a tree that can be
+visualized with the \emph{gnuplot} \cite{gnuplot} program. The matrix
+view highlights each sequence as a point on a line,
 coloring sequences belonging to the same cluster in the same
 color. This is useful for instance in the verification of simulated or
 real datasets where the sequences are already ordered by clusters and
-hence should generate lines in the same color. This also shows as one
-stacks these lines on top of each other how clusters merge as the
-$\epsilon$ value changes.
+hence should generate lines in the same color.
+This representation also allows one to investigate how clusters merge as one
+stacks these lines on top of each other as the $\epsilon$ value increases.
 
 \subsection{Usage}
 
@@ -26,11 +26,12 @@ split_set_to_matrix_line [fasta] [split-set] >> [matrix]
 where:
 \begin{enumerate}
   \item \emph{fasta} Is a FASTA file that one has generated clusters
-    from for instance in an adaptive clustering, as the ones outlined
-    in section \ref{sec-adaptive-clust}
+    from, for instance in performing an adaptive clustering run using the
+    tools outlined in section \ref{sec-adaptive-clust}.
   \item \emph{split-set} A binary file holding the clusters obtained
     from an adaptive clustering run.
-  \item \emph{matrix} The matrix to store a line to.
+  \item \emph{matrix} The matrix to store a line,
+    correponding to the \emph{split-set} file, to.
 \end{enumerate}
 The \emph{split\_set\_to\_matrix\_annotation} call in itself is not
 needed, it basically annotates each sequence with the internal
@@ -38,8 +39,9 @@ sequence number, or the number of sequence occurrence in the original
 FASTA file, starting with 0 for the first sequence.
 
 \subsection{Example}
-One has run an adaptive clustering run that yielded 86 different
-clustering layers (of a tree) and hence, 86 split set files in using
+We imagene we have performed an adaptive clustering run that
+yielded 86 different
+cluster layers (of a tree) and hence, 86 \emph{split-set} files in using
 one of the adaptive clustering tools shown in section \ref{sec-adaptive-clust}
 \lstset{language=bash,
   caption={Example usage of the \emph{split\_set\_to\_matrix} tools},
@@ -52,8 +54,8 @@ done
 In this example the 86 \emph{split-sets} for each layer of the
 adaptive clustering run are successively as lines written to the
 \emph{test.matrix} file.
-The \emph{test.matrix} file can then be visualized by \emph{gnuplot}.
-On the \emph{gnuplot} console one might issue the command:
+The \emph{test.matrix} file can then be visualized by \emph{gnuplot} using
+the following command:
 \lstset{language={},
   caption={Using gnuplot to plot a matrix from \emph{split\_set\_to\_matrix} tools},
   label=lst-ssmatrix-example-plot}

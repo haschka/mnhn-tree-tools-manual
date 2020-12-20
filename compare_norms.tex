@@ -2,9 +2,10 @@
 
 \subsection{General}
 
-The compare norms utility allows you to calculate distances between sequences
-in a dataset using the Smith Waterman Distance or a distance in the a
-principal components subspace of k-mers.
+The compare norms utility calculates distances between sequences
+in a dataset using the Smith Waterman distance and the $L_{1}$ and $L_{2}$
+distance of k-mer frequency vectors that have been projected on their
+principal components.
 
 \subsection{Usage}
 
@@ -33,7 +34,7 @@ where the arguments are:
 \subsection{Algorithm}
 The Smith Waterman algorithm is used in the same way as pointed out in
 section \ref{sec-dbscan-algorithm}. The distance based on the
-projections is calculated in $L_2$ and $L_1$ norm.
+projections is calculated in $L_1$ and $L_2$ norm.
 
 \subsection{Example}
 \lstset{language=bash,
@@ -49,10 +50,9 @@ in $L_1$ and $L_2$ norm in the 7 dimensional PCA subspace.
 The distances file contains, per line as first and second integers the
 index of the sequences compared. The third position
 the Smith Waterman distance, the fourth distance position is the
-distance in the PCA subspace in $L_2$ norm and the fifth in $L_1$
+distance in the PCA subspace in $L_1$ norm and the fifth in $L_2$
 norm.
 A sample output of looks like this:
-\subsection{Example}
 \lstset{language=bash,
   caption={Example output of the \emph{compare\_norms} tool},
   label=lst-comparenorms-example-output}
@@ -68,4 +68,5 @@ i j SW L1 L2
 4 1 72.000000 3.526202 7.919044
 4 2 106.000000 6.843701 14.724481
 \end{lstlisting}
+
 

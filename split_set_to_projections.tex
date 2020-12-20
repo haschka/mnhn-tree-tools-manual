@@ -8,10 +8,10 @@ on a dataset, i.e. obtained from the tool shown in section
 can be obtained using the \emph{kmer2pca} tool presented in section
 \ref{sec-kmer2pca}.
 This tool is especially useful to plot individual clusters together
-with a PCA analysis of sequences and hence find sequences
+with a PCA analysis of sequences and hence, to find sequences
 corresponding to clusters in such a diagram. 
 
-\subsection{usage}
+\subsection{Usage}
 
 The \emph{split\_set\_to\_projections} tool is to be called like:
 
@@ -23,19 +23,21 @@ split_sets_to_projections [fasta] [pca] [dimensions] [split-set] [projections]
 \end{lstlisting}
 with the following arguments:
 \begin{enumerate}
-  \item \emph{fasta} The FASTA file the clustering and hence the
-    \emph{split-set} was generated from.
+\item \emph{fasta} The FASTA file that is partitioned by clusters stored in
+  the \emph{split-set}.
   \item \emph{pca} A projection onto principal components of the
     afformentioned FASTA file, i.e. obtained with the \emph{kmer2pca}
     tool mentioned in section \ref{sec-kmer2pca}.
-  \item \emph{dimensions} The number of dimensions of the PCA subspace in the
-    afformentioned \emph{pca} file.
+  \item \emph{dimensions} The number of dimensions of the PCA subspace stored
+    in the afformentioned \emph{pca} file.
   \item \emph{split-set} The binary file that holds the clusters.
   \item \emph{projections} A \emph{path/filename} combination where to put
     the resulting projections of the clusters in PCA space. Each
     cluster will generate a file with an individual number added to
     the name.
 \end{enumerate}
+
+\subsection{Example}
 
 \lstset{language=bash,
   caption={Calling the \emph{split\_set\_to\_projections} tool},
