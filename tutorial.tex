@@ -8,9 +8,9 @@ you started with \emph{MNHN-Tree-Tools}.
 
 At first let us get started with a dataset that you might have. For this
 tutorial we recommend you to have a dataset of reasonable size at
-hand. While these tools work and have been tested for millions of
-sequences we recommend you that you use a dataset of about 5000 to
-10000 sequences for this tutorial to progress fast and learn how to
+hand. The tools presented herein work and have been tested for millions of
+sequences, nevertheless your dataset should consist of 5000 to
+10000 sequences in order to progress fast and learn how to
 use these tools quickly. If you have no dataset available you can
 generate one with our built in virtual biosphere generator, the
 \emph{virtual\_evolution} tools shown in section
@@ -34,7 +34,8 @@ If your file contains lines that are longer then the 1000 character
 limit you may convert it to
 a conforming FASTA file using the \emph{seqret} tool from EMBOSS
 \cite{emboss}.
-Several application domains of \emph{MNHN-Tree-Tools} are used to use FASTQ files.
+Several application domains of \emph{MNHN-Tree-Tools} are
+used to use FASTQ files.
 If you have datasets in this format you may use the following
 \emph{bash} script to convert your FASTQ files to FASTA files. 
 \lstset{language=bash,
@@ -239,6 +240,18 @@ illustration of the algorithm is shown in figure
     left.}
   \label{fig-adaptive-cluster}
 \end{figure}
+
+In order to find the reasonable input parameters
+$\epsilon_{\mathrm{int}}$, $\Delta\epsilon$ and \emph{minPoints} we
+suggest the reader to plot several projection planes of the PCA and
+estimate $\epsilon_{\mathrm{int}}$ and $\Delta\epsilon$ from the
+scales of these planes. For input parameters using a Smith Waterman
+based run, we let the reader know that a distance of 4 should
+correspond to a single nucleotide replacement (c.f. section
+\ref{sec-dbscan-algorithm}) and that the reader may
+ajust its $\epsilon$ distances depending on the required
+applications. 
+
 For a more detailed overview the reader is referred to section
 \ref{sec-adaptive-clust}. The command in listing
 \ref{lst-adaptivecluster-tutorial} yields us 
